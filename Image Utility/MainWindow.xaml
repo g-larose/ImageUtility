@@ -68,7 +68,20 @@
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
                         Margin="2"
-                        Grid.Row="5">
+                        Grid.Row="2"
+                        Command="{Binding NavigateResizerCommand}">
+                    <fa:IconImage Icon="TextHeight"
+                                  Foreground="DarkGray"
+                                  Height="50"
+                                  Width="50" />
+                </Button>
+                <Button Width="80"
+                        Height="80"
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
+                        Margin="2"
+                        Grid.Row="5"
+                        Command="{Binding NavigateSettingsCommand}">
                     <fa:IconImage Icon="Gear"
                                   Foreground="DarkGray"
                                   Height="50"
@@ -90,6 +103,12 @@
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type vm:DownloaderViewModel}">
                     <v:DownloaderView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:ResizerViewModel}">
+                    <v:ResizerView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+                    <v:SettingsView />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

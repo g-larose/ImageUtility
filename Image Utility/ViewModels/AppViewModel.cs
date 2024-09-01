@@ -18,12 +18,16 @@ namespace Image_Utility.ViewModels
         private readonly INavigator? _navigator;
         public ViewModelBase? SelectedViewModel => _navigator!.CurrentViewModel;
         public ICommand NavigateDownloaderCommand { get; }
+        public ICommand NavigateResizerCommand { get; }
+        public ICommand NavigateSettingsCommand { get; }
 
         public AppViewModel(INavigator? navigator)
         {
             _navigator = navigator;
             _navigator!.CurrentViewModelChanged += OnSelectedViewModelChanged;
             NavigateDownloaderCommand = new NavigateCommand<DownloaderViewModel>(_navigator, () => new DownloaderViewModel(_navigator));
+            NavigateResizerCommand = new NavigateCommand<ResizerViewModel>(_navigator, () => new ResizerViewModel(_navigator));
+            NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(_navigator, () => new SettingsViewModel(_navigator));
         }
 
         private void OnSelectedViewModelChanged()
