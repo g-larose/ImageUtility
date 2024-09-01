@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  Colors  -->
+    <Color x:Key="Primary">#1c1c1c</Color>
+    <Color x:Key="Primary200">#2c2c2c</Color>
+    <Color x:Key="Primary300">#3c3c3c</Color>
+    <Color x:Key="Primary400">#4c4c4c</Color>
+    <Color x:Key="Primary500">#5c5c5c</Color>
+    <Color x:Key="Primary600">#6c6c6c</Color>
+    <Color x:Key="Primary700">#7c7c7c</Color>
+    <Color x:Key="Primary800">#8c8c8c</Color>
+    <Color x:Key="Primary900">#9c9c9c</Color>
+    <Color x:Key="Secondary">#2b2b2b</Color>
+    <Color x:Key="Accent">#6ad104</Color>
+    <Color x:Key="Accent100">#57aa03</Color>
+    <Color x:Key="Accent200">#4a9301</Color>
+    <Color x:Key="Accent300">#3f7c01</Color>
+    <Color x:Key="Accent400">#336600</Color>
+    <Color x:Key="Accent500">#2a5400</Color>
+    <Color x:Key="SecondaryAccent">#fcce00</Color>
+    <Color x:Key="SecondaryAccent100">#e2b902</Color>
+    <Color x:Key="SecondaryAccent200">#cea800</Color>
+    <Color x:Key="SecondaryAccent300">#b79500</Color>
+    <Color x:Key="SecondaryAccent400">#9b7f00</Color>
+    <Color x:Key="SecondaryAccent500">#8c7200</Color>
+
+    <!--  Color Brushes  -->
+    <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource Primary}" />
+    <SolidColorBrush x:Key="Primary200ColorBrush" Color="{StaticResource Primary200}" />
+    <SolidColorBrush x:Key="Primary300ColorBrush" Color="{StaticResource Primary300}" />
+    <SolidColorBrush x:Key="Primary400ColorBrush" Color="{StaticResource Primary400}" />
+    <SolidColorBrush x:Key="Primary500ColorBrush" Color="{StaticResource Primary500}" />
+    <SolidColorBrush x:Key="Primary600ColorBrush" Color="{StaticResource Primary600}" />
+    <SolidColorBrush x:Key="Primary700ColorBrush" Color="{StaticResource Primary700}" />
+    <SolidColorBrush x:Key="Primary800ColorBrush" Color="{StaticResource Primary800}" />
+    <SolidColorBrush x:Key="Primary900ColorBrush" Color="{StaticResource Primary900}" />
+    <SolidColorBrush x:Key="SecondaryColorBrush" Color="{StaticResource Secondary}" />
+    <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource Accent}" />
+    <SolidColorBrush x:Key="SecondaryAccentColorBrush" Color="{StaticResource SecondaryAccent}" />
+
+    <!--  Gradient Brushes  -->
+    <!--  PrimaryToSecondary  -->
+    <LinearGradientBrush x:Key="PrimaryToSecondaryGradientBrush" StartPoint="0,0.5" EndPoint="0.5,1">
+        <GradientStop Offset="0.0" Color="{StaticResource Secondary}" />
+        <GradientStop Offset="1.0" Color="{StaticResource Primary}" />
+    </LinearGradientBrush>
+    <!--  End PrimaryToSecondary  -->
+
+    <!--  PrimaryToSecondary 100  -->
+    <LinearGradientBrush x:Key="AccentToAccent100GradientBrush" StartPoint="0,0.5" EndPoint="0.5,1">
+        <GradientStop Offset="0.0" Color="{StaticResource SecondaryAccent}" />
+        <GradientStop Offset="1.0" Color="{StaticResource SecondaryAccent100}" />
+    </LinearGradientBrush>
+    <!--  End PrimaryToSecondary  -->
+
+    <!--  PrimaryToSecondary 200  -->
+    <LinearGradientBrush x:Key="AccentToAccent200GradientBrush" StartPoint="0,0.5" EndPoint="0.5,1">
+        <GradientStop Offset="0.0" Color="{StaticResource SecondaryAccent}" />
+        <GradientStop Offset="1.0" Color="{StaticResource SecondaryAccent200}" />
+    </LinearGradientBrush>
+    <!--  End PrimaryToSecondary  -->
+
+    <!--  GreenToLiteGreenGradientBrush  -->
+    <LinearGradientBrush x:Key="GreenToLiteGreenGradientBrush" StartPoint="0,0.5" EndPoint="0.5,1">
+        <GradientStop Offset="0.0" Color="{StaticResource Accent}" />
+        <GradientStop Offset="1.0" Color="{StaticResource Accent200}" />
+    </LinearGradientBrush>
+    <!--  End GreenToLiteGreenGradientBrush  -->
+
+</ResourceDictionary>
