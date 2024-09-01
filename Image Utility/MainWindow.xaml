@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Image_Utility"
+        xmlns:vm="clr-namespace:Image_Utility.ViewModels"
+        xmlns:v="clr-namespace:Image_Utility.Views"
         mc:Ignorable="d"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         WindowStartupLocation="CenterScreen"
@@ -54,7 +56,8 @@
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
                         Margin="2"
-                        Grid.Row="1">
+                        Grid.Row="1"
+                        Command="{Binding NavigateDownloaderCommand}">
                     <fa:IconImage Icon="FileImage"
                                   Foreground="DarkGray"
                                   Height="50"
@@ -75,6 +78,21 @@
            
         </Border>
                 
+        <!--#endregion-->
+        
+        <!--#region Main Content -->
+        <ContentControl Grid.Column="2"
+                        Grid.Row="1"
+                        Content="{Binding SelectedViewModel}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="20">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vm:DownloaderViewModel}">
+                    <v:DownloaderView />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
         <!--#endregion-->
     </Grid>
 </Window>

@@ -1,4 +1,6 @@
-﻿using Image_Utility.ViewModels;
+﻿using Image_Utility.Interfaces;
+using Image_Utility.Navigation;
+using Image_Utility.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
@@ -19,6 +21,7 @@ namespace Image_Utility
             _host = Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
                 services.AddSingleton<AppViewModel>();
+                services.AddSingleton<INavigator, Navigator>();
                 services.AddSingleton<MainWindow>(s => new MainWindow()
                 {
                     DataContext = s.GetRequiredService<AppViewModel>()

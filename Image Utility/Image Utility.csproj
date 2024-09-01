@@ -12,7 +12,6 @@
     <Folder Include="Helpers\" />
     <Folder Include="Utilities\" />
     <Folder Include="Services\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 
   <ItemGroup>
