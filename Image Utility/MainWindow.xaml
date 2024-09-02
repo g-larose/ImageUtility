@@ -146,6 +146,14 @@
         <!--#endregion-->
         
         <!--#region Main Content -->
+        <TextBlock Grid.Column="3"
+                   Grid.Row="1"
+                   Text="Image Utility"
+                   FontSize="128"
+                   Foreground="{StaticResource Primary900ColorBrush}" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Opacity=".1"/>
         <ContentControl Grid.Column="3"
                         Grid.Row="1"
                         Content="{Binding SelectedViewModel}"
