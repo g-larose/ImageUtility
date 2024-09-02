@@ -5,12 +5,32 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Image_Utility.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Height="450"
     Width="800"
+    Height="450"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock Text="Image Resizer"
-                   FontSize="48"
-                   Foreground="{StaticResource PrimaryColorBrush}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            Margin="20,0"
+            FontSize="28"
+            Foreground="{StaticResource PrimaryColorBrush}"
+            Text="Image Resizer" />
+
+        <CheckBox
+            Grid.Row="1"
+            Height="40"
+            Margin="20,0,10,0"
+            Content="Select For Bulk Resize"
+            FontSize="16"
+            Style="{StaticResource MaterialDesignCheckBox}" />
+
     </Grid>
 </UserControl>

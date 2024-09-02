@@ -1,52 +1,54 @@
-﻿<UserControl x:Class="Image_Utility.Views.DownloaderView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Image_Utility.Views"
-             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
-             Height="250" Width="800">
-    <Grid Margin="20 0 0 0">
+﻿<UserControl
+    x:Class="Image_Utility.Views.DownloaderView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Image_Utility.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    Width="800"
+    Height="250"
+    mc:Ignorable="d">
+    <Grid Margin="20,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
             <RowDefinition Height="40" />
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0"
-                   FontSize="28"
-                   Foreground="{StaticResource Primary200ColorBrush}"
-                   Text="Image Downloader" />
-        <StackPanel Orientation="Horizontal"
-                    Grid.Row="1">
-            <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Height="40" 
-                    Width="400"
-                    HorizontalAlignment="Left"
-                    md:HintAssist.Hint="Source URL"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    Grid.Row="2">
-       <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                Height="40" 
+        <TextBlock
+            Grid.Row="0"
+            FontSize="28"
+            Foreground="{StaticResource Primary200ColorBrush}"
+            Text="Image Downloader" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBox
                 Width="400"
+                Height="40"
                 HorizontalAlignment="Left"
-                md:HintAssist.Hint="Destination Folder"/>
-            <Button Background="{StaticResource Primary400ColorBrush}"
-                    Style="{StaticResource MaterialDesignFloatingActionButton}"
-                    BorderBrush="Transparent"
-                    Content="..."
-                    Foreground="WhiteSmoke"
-                    FontSize="18"
-                    Height="40"
-                    Width="40"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Margin="20 0">
-
-            </Button>
+                md:HintAssist.Hint="Source URL"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
         </StackPanel>
-        
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBox
+                Width="400"
+                Height="40"
+                HorizontalAlignment="Left"
+                md:HintAssist.Hint="Destination Folder"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <Button
+                Width="40"
+                Height="40"
+                Margin="20,0"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Background="{StaticResource Primary400ColorBrush}"
+                BorderBrush="Transparent"
+                Content="..."
+                FontSize="18"
+                Foreground="WhiteSmoke"
+                Style="{StaticResource MaterialDesignFloatingActionButton}" />
+        </StackPanel>
+
     </Grid>
 </UserControl>

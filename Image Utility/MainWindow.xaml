@@ -17,6 +17,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
             <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="60" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
@@ -30,7 +31,15 @@
         <Border Grid.Column="0"
                 Grid.Row="0"
                 Grid.RowSpan="3"
-                Grid.ColumnSpan="2">
+                Grid.ColumnSpan="2"
+                Background="{StaticResource Primary300ColorBrush}">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="14"
+                                  ShadowDepth="4"
+                                  Direction="0"
+                                  Color="Black"
+                                  Opacity=".6" />
+            </Border.Effect>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"/>
@@ -45,8 +54,15 @@
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
                         Margin="2"
-                        Grid.Row="0">
-                    <fa:IconImage Icon="Home"
+                        Grid.Row="0"
+                        Command="{Binding NavigateRenamerCommand}"
+                        ToolTip="Renamer"
+                        ToolTipService.HasDropShadow="True"
+                        ToolTipService.Placement="Right"
+                        ToolTipService.ShowDuration="2000"
+                        ToolTipService.VerticalOffset="24"
+                        ToolTipService.HorizontalOffset="6">
+                    <fa:IconImage Icon="ArrowUpAZ"
                                   Foreground="DarkGray"
                                   Height="50"
                                   Width="50" />
@@ -57,7 +73,13 @@
                         BorderBrush="{x:Null}"
                         Margin="2"
                         Grid.Row="1"
-                        Command="{Binding NavigateDownloaderCommand}">
+                        Command="{Binding NavigateDownloaderCommand}"
+                        ToolTip="Downloader"
+                        ToolTipService.HasDropShadow="True"
+                        ToolTipService.Placement="Right"
+                        ToolTipService.ShowDuration="2000"
+                        ToolTipService.VerticalOffset="24"
+                        ToolTipService.HorizontalOffset="6">
                     <fa:IconImage Icon="FileImage"
                                   Foreground="DarkGray"
                                   Height="50"
@@ -69,7 +91,13 @@
                         BorderBrush="{x:Null}"
                         Margin="2"
                         Grid.Row="2"
-                        Command="{Binding NavigateResizerCommand}">
+                        Command="{Binding NavigateResizerCommand}"
+                        ToolTip="Resizer"
+                        ToolTipService.HasDropShadow="True"
+                        ToolTipService.Placement="Right"
+                        ToolTipService.ShowDuration="2000"
+                        ToolTipService.VerticalOffset="24"
+                        ToolTipService.HorizontalOffset="6">
                     <fa:IconImage Icon="TextHeight"
                                   Foreground="DarkGray"
                                   Height="50"
@@ -80,8 +108,32 @@
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
                         Margin="2"
+                        Grid.Row="3"
+                        Command="{Binding NavigateCompresserCommand}"
+                        ToolTip="Compressor"
+                        ToolTipService.HasDropShadow="True"
+                        ToolTipService.Placement="Right"
+                        ToolTipService.ShowDuration="2000"
+                        ToolTipService.VerticalOffset="24"
+                        ToolTipService.HorizontalOffset="6">
+                    <fa:IconImage Icon="FileZipper"
+                                  Foreground="DarkGray"
+                                  Height="50"
+                                  Width="50" />
+                </Button>
+                <Button Width="80"
+                        Height="80"
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
+                        Margin="2"
                         Grid.Row="5"
-                        Command="{Binding NavigateSettingsCommand}">
+                        Command="{Binding NavigateSettingsCommand}"
+                        ToolTip="Settings"
+                        ToolTipService.HasDropShadow="True"
+                        ToolTipService.Placement="Right"
+                        ToolTipService.ShowDuration="2000"
+                        ToolTipService.VerticalOffset="24"
+                        ToolTipService.HorizontalOffset="6">
                     <fa:IconImage Icon="Gear"
                                   Foreground="DarkGray"
                                   Height="50"
@@ -94,13 +146,16 @@
         <!--#endregion-->
         
         <!--#region Main Content -->
-        <ContentControl Grid.Column="2"
+        <ContentControl Grid.Column="3"
                         Grid.Row="1"
                         Content="{Binding SelectedViewModel}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Margin="20">
             <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vm:RenamerViewModel}">
+                    <v:RenamerView />
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:DownloaderViewModel}">
                     <v:DownloaderView />
                 </DataTemplate>
@@ -110,6 +165,9 @@
                 <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
                     <v:SettingsView />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:CompresserViewModel}">
+                    <v:CompresserView />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <!--#endregion-->
@@ -117,6 +175,7 @@
         <!--#region Footer-->
         <StackPanel Grid.Column="2"
                     Grid.Row="2"
+                    Grid.ColumnSpan="2"
                     Orientation="Horizontal"
                     Margin="4"
                     VerticalAlignment="Center">

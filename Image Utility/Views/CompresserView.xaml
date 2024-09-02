@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Image_Utility.Views.SettingsView"
+    x:Class="Image_Utility.Views.CompresserView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,8 +10,8 @@
     mc:Ignorable="d">
     <Grid>
         <TextBlock
-            FontSize="44"
+            FontSize="28"
             Foreground="{StaticResource PrimaryColorBrush}"
-            Text="Settings" />
+            Text="Compresser" />
     </Grid>
 </UserControl>

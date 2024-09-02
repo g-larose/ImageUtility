@@ -20,6 +20,8 @@ namespace Image_Utility.ViewModels
         public ICommand NavigateDownloaderCommand { get; }
         public ICommand NavigateResizerCommand { get; }
         public ICommand NavigateSettingsCommand { get; }
+        public ICommand NavigateCompresserCommand { get; }
+        public ICommand NavigateRenamerCommand { get; }
 
         public AppViewModel(INavigator? navigator)
         {
@@ -28,6 +30,8 @@ namespace Image_Utility.ViewModels
             NavigateDownloaderCommand = new NavigateCommand<DownloaderViewModel>(_navigator, () => new DownloaderViewModel(_navigator));
             NavigateResizerCommand = new NavigateCommand<ResizerViewModel>(_navigator, () => new ResizerViewModel(_navigator));
             NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(_navigator, () => new SettingsViewModel(_navigator));
+            NavigateCompresserCommand = new NavigateCommand<CompresserViewModel>(_navigator, () => new CompresserViewModel(_navigator));
+            NavigateRenamerCommand = new NavigateCommand<RenamerViewModel>(_navigator, () => new RenamerViewModel(_navigator));
         }
 
         private void OnSelectedViewModelChanged()
