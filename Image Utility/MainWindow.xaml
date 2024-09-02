@@ -8,12 +8,17 @@
         xmlns:v="clr-namespace:Image_Utility.Views"
         mc:Ignorable="d"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:converter="clr-namespace:Image_Utility.Converters"
         WindowStartupLocation="CenterScreen"
         Title="Image Utility PRO" 
         Height="900" 
         Width="1400">
+
+    <Window.Resources>
+        <converter:BoolToColorConverter x:Key="boolToColorConverter" />
+    </Window.Resources>
     
-    <Grid Background="LightGray">
+    <Grid Background="{StaticResource Primary200ColorBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
             <ColumnDefinition Width="60" />
@@ -32,13 +37,14 @@
                 Grid.Row="0"
                 Grid.RowSpan="3"
                 Grid.ColumnSpan="2"
-                Background="{StaticResource Primary300ColorBrush}">
+                Background="{StaticResource PrimaryColorBrush}"
+                CornerRadius="0 10 10 0">
             <Border.Effect>
-                <DropShadowEffect BlurRadius="14"
+                <DropShadowEffect BlurRadius="10"
                                   ShadowDepth="4"
                                   Direction="0"
                                   Color="Black"
-                                  Opacity=".6" />
+                                  Opacity=".4" />
             </Border.Effect>
             <Grid>
                 <Grid.RowDefinitions>
@@ -189,7 +195,7 @@
                     VerticalAlignment="Center">
             <TextBlock Text="Online"
                        FontSize="18"
-                       Foreground="{StaticResource AccentColorBrush}"
+                       Foreground="{Binding IsOnline, Converter={StaticResource boolToColorConverter}}"
                        VerticalAlignment="Top"
                        Margin="20 -14 0 0"/>
 

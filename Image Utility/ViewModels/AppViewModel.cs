@@ -23,6 +23,13 @@ namespace Image_Utility.ViewModels
         public ICommand NavigateCompresserCommand { get; }
         public ICommand NavigateRenamerCommand { get; }
 
+        private bool _isOnline;
+        public bool IsOnline
+        {
+            get => _isOnline;
+            set => OnPropertyChanged(ref _isOnline, value);
+        }
+
         public AppViewModel(INavigator? navigator)
         {
             _navigator = navigator;
@@ -32,6 +39,7 @@ namespace Image_Utility.ViewModels
             NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(_navigator, () => new SettingsViewModel(_navigator));
             NavigateCompresserCommand = new NavigateCommand<CompresserViewModel>(_navigator, () => new CompresserViewModel(_navigator));
             NavigateRenamerCommand = new NavigateCommand<RenamerViewModel>(_navigator, () => new RenamerViewModel(_navigator));
+            IsOnline = true;
         }
 
         private void OnSelectedViewModelChanged()
