@@ -15,6 +15,7 @@ namespace Image_Utility.ViewModels
     {
         private readonly INavigator? _navigator;
         public ICommand OpenSourceFolderCommand { get; }
+        public ICommand SetDestinationFolderCommand { get; }
 
         private List<File> _files;
         public List<File> Files
@@ -30,6 +31,13 @@ namespace Image_Utility.ViewModels
             set => OnPropertyChanged(ref _sourceDir, value);
         }
 
+        private string _destinationDir;
+        public string DestinationDir
+        {
+            get => _destinationDir;
+            set => OnPropertyChanged(ref _destinationDir, value);
+        }
+
         private int _fileCount;
         public int FileCount
         {
@@ -40,9 +48,15 @@ namespace Image_Utility.ViewModels
         {
             _navigator = navigator;
             OpenSourceFolderCommand = new RelayCommand(OpenFileBrowser);
+            SetDestinationFolderCommand = new RelayCommand(SetDestinationDir);
             Files = new();
             Files.Add(new File { fileName = "imageOne.jpg", newFileName = "image-001.png" });
            
+        }
+
+        private void SetDestinationDir()
+        {
+            throw new NotImplementedException();
         }
 
         private void OpenFileBrowser()
@@ -58,7 +72,7 @@ namespace Image_Utility.ViewModels
             //}
 
             var ofd = new FolderBrowserDialog();
-            ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            ofd.InitialDirectory = @"F:";//Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {

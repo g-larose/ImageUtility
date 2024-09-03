@@ -39,13 +39,19 @@
 
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
+                <RowDefinition Height="85" />
                 <RowDefinition Height="150"/>
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>
 
-            <!--#region Source Folder-->
-            <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+            <!--#region Source/Destination Folder-->
+            <StackPanel Grid.Column="0"
+                        Grid.Row="0"
+                        Orientation="Vertical"
+                        Grid.ColumnSpan="2"
+                        >
+                <StackPanel Orientation="Horizontal" Height="40">
+                   <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      md:HintAssist.Hint="Source"
                      md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
                      Foreground="{StaticResource Primary900ColorBrush}"
@@ -54,37 +60,71 @@
                      Height="38" 
                      Grid.Column="0"
                      Grid.Row="0"
-                     Grid.ColumnSpan="2"
+                     Padding="8"
                      Width="500"
                      HorizontalAlignment="Left"
                      Text="{Binding SourceDir}"/>
-            <Button Grid.Column="1"
-                    Grid.Row="0"
-                    Style="{StaticResource MaterialDesignFloatingActionButton}"
-                    Height="36"
-                    Width="36"
-                    Content=". . ."
-                    BorderBrush="Transparent"
-                    Foreground="{StaticResource Primary800ColorBrush}" 
-                    Background="{StaticResource PrimaryColorBrush}"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Margin="210 -3 0 0"
-                    Command="{Binding OpenSourceFolderCommand}"/>
-            <TextBlock Grid.Column="1"
-                       Text="Files"
-                       FontSize="16"
-                       Foreground="{StaticResource Primary900ColorBrush}"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center" 
-                       Margin="260 -3 0 0"/>
-            <TextBlock Grid.Column="1"
-                       Text="{Binding FileCount, FallbackValue=10}"
-                       FontSize="16"
-                       Foreground="{StaticResource Primary900ColorBrush}"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center" 
-                       Margin="300 -3 0 0"/>
+                    <Button Grid.Column="1"
+                            Grid.Row="0"
+                            Style="{StaticResource MaterialDesignFloatingActionButton}"
+                            Height="36"
+                            Width="36"
+                            Content=". . ."
+                            BorderBrush="Transparent"
+                            Foreground="{StaticResource Primary800ColorBrush}" 
+                            Background="{StaticResource PrimaryColorBrush}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Margin="10 -3 0 0"
+                            Command="{Binding OpenSourceFolderCommand}"/>
+                    <TextBlock Grid.Column="1"
+                               Text="Files"
+                               FontSize="16"
+                               Foreground="{StaticResource AccentColorBrush}"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center" 
+                               Margin="10 -3 0 0"/>
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding FileCount, FallbackValue=10}"
+                               FontSize="16"
+                               Foreground="{StaticResource AccentColorBrush}"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center" 
+                               Margin="20 -3 0 0"/> 
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" 
+                            Height="40"
+                            Margin="0 4">
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             md:HintAssist.Hint="Destination"
+                             md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
+                             Foreground="{StaticResource Primary900ColorBrush}"
+                             Background="{StaticResource Primary200ColorBrush}"
+                             BorderBrush="{StaticResource Primary700ColorBrush}"
+                             Height="38" 
+                             Grid.Column="0"
+                             Grid.Row="0"
+                             Width="500"
+                             HorizontalAlignment="Left"
+                             Text="{Binding DestinationDir}"
+                             Padding="8"/>
+                    <Button Grid.Column="1"
+                            Grid.Row="0"
+                            Style="{StaticResource MaterialDesignFloatingActionButton}"
+                            Height="36"
+                            Width="36"
+                            Content=". . ."
+                            BorderBrush="Transparent"
+                            Foreground="{StaticResource Primary800ColorBrush}" 
+                            Background="{StaticResource PrimaryColorBrush}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Margin="10 -3 0 0"
+                            Command="{Binding SetDestinationFolderCommand}"/>
+                 
+                </StackPanel>
+            </StackPanel>
+            
             <!--#endregion-->
 
             <!--#region SEARCH FOR-->
@@ -157,6 +197,7 @@
                 </Grid>
             </Border>
             <!--#endregion-->
+            
             <!--#region  FILE LIST -->
             <ListView Grid.Column="0"
                       Grid.Row="2"
