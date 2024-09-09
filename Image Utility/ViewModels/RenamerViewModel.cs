@@ -2,6 +2,7 @@
 using Image_Utility.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,8 +18,8 @@ namespace Image_Utility.ViewModels
         public ICommand OpenSourceFolderCommand { get; }
         public ICommand SetDestinationFolderCommand { get; }
 
-        private List<File> _files;
-        public List<File> Files
+        private ObservableCollection<File> _files;
+        public ObservableCollection<File> Files
         {
             get => _files;
             set => OnPropertyChanged(ref _files, value);
@@ -44,19 +45,53 @@ namespace Image_Utility.ViewModels
             get => _fileCount;
             set => OnPropertyChanged(ref _fileCount, value);
         }
+
+        private string _matchFor;
+        public string MatchFor
+        {
+            get => _matchFor;
+            set => OnPropertyChanged(ref _matchFor, value);
+        }
+
+        private string _replaceWith;
+        public string ReplaceWith
+        {
+            get => _replaceWith;
+            set => OnPropertyChanged(ref _replaceWith, value);
+        }
         public RenamerViewModel(INavigator? navigator)
         {
             _navigator = navigator;
             OpenSourceFolderCommand = new RelayCommand(OpenFileBrowser);
             SetDestinationFolderCommand = new RelayCommand(SetDestinationDir);
             Files = new();
-            Files.Add(new File { fileName = "imageOne.jpg", newFileName = "image-001.png" });
+            
            
         }
 
         private void SetDestinationDir()
         {
-            throw new NotImplementedException();
+            var ofd = new FolderBrowserDialog();
+            ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                DestinationDir = ofd.SelectedPath;
+                var files = Directory.GetFiles(SourceDir);
+                var count = 1;
+                foreach (var file in files)
+                {
+                    Files.Add(new File
+                    {
+                        fileName = file,
+                        newFileName = $"image-{count}.png",
+                        sourceDest = SourceDir,
+                        destination = DestinationDir
+                    });
+                    count++;
+                }
+                
+            }
         }
 
         private void OpenFileBrowser()
@@ -72,7 +107,7 @@ namespace Image_Utility.ViewModels
             //}
 
             var ofd = new FolderBrowserDialog();
-            ofd.InitialDirectory = @"F:";//Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {

@@ -9,9 +9,73 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock
-            FontSize="44"
-            Foreground="{StaticResource PrimaryColorBrush}"
-            Text="Settings" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="500" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="210"
+            Height="300"
+            Margin="-30,50,0,0"
+            Panel.ZIndex="0"
+            Background="{StaticResource Primary400ColorBrush}"
+            CornerRadius="12">
+            <Border.RenderTransform>
+                <RotateTransform Angle="-5" />
+            </Border.RenderTransform>
+
+        </Border>
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="200"
+            Height="300"
+            Margin="-10,26,0,0"
+            Panel.ZIndex="1"
+            Background="{StaticResource AccentColorBrush}"
+            CornerRadius="12">
+            <Border.RenderTransform>
+                <RotateTransform Angle="-2" />
+            </Border.RenderTransform>
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="20"
+                    Direction="270"
+                    Opacity=".6"
+                    ShadowDepth="10"
+                    Color="Black" />
+            </Border.Effect>
+        </Border>
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="200"
+            Height="300"
+            Margin="8,14,0,0"
+            Panel.ZIndex="2"
+            Background="{StaticResource AccentToAccent200GradientBrush}"
+            CornerRadius="12">
+            <Border.RenderTransform>
+                <RotateTransform Angle="3" />
+            </Border.RenderTransform>
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="10"
+                    Direction="270"
+                    Opacity="1"
+                    ShadowDepth="10"
+                    Color="Black" />
+            </Border.Effect>
+        </Border>
     </Grid>
 </UserControl>

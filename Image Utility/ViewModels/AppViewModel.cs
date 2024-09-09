@@ -3,6 +3,7 @@ using Image_Utility.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -39,12 +40,28 @@ namespace Image_Utility.ViewModels
             NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(_navigator, () => new SettingsViewModel(_navigator));
             NavigateCompresserCommand = new NavigateCommand<CompresserViewModel>(_navigator, () => new CompresserViewModel(_navigator));
             NavigateRenamerCommand = new NavigateCommand<RenamerViewModel>(_navigator, () => new RenamerViewModel(_navigator));
-            IsOnline = true;
+            IsConnectedToInternet();
         }
 
         private void OnSelectedViewModelChanged()
         {
             OnPropertyChanged(nameof(SelectedViewModel));
+        }
+
+        public void IsConnectedToInternet()
+        {
+            string host = "google.com";  
+            Ping p = new Ping();
+            try
+            {
+                PingReply reply = p.Send(host, 8000);
+                if (reply.Status == IPStatus.Success)
+                    _isOnline = true;
+            }
+            catch (Exception e)
+            {
+                _isOnline = false;
+            }
         }
     }
 }
