@@ -17,6 +17,7 @@ namespace Image_Utility.ViewModels
         private readonly INavigator? _navigator;
         public ICommand OpenSourceFolderCommand { get; }
         public ICommand SetDestinationFolderCommand { get; }
+        public ICommand SetExternalCommand { get; }
 
         private ObservableCollection<File> _files;
         public ObservableCollection<File> Files
@@ -59,14 +60,40 @@ namespace Image_Utility.ViewModels
             get => _replaceWith;
             set => OnPropertyChanged(ref _replaceWith, value);
         }
+
+        private string _xternalFilePath;
+        public string ExternalFilePath
+        {
+            get => _xternalFilePath;
+            set => OnPropertyChanged(ref _xternalFilePath, value);
+        }
+
+        private bool _useExternal;
+        public bool UseExternal
+        {
+            get => _useExternal;
+            set => OnPropertyChanged(ref _useExternal, value);
+        }
         public RenamerViewModel(INavigator? navigator)
         {
             _navigator = navigator;
             OpenSourceFolderCommand = new RelayCommand(OpenFileBrowser);
             SetDestinationFolderCommand = new RelayCommand(SetDestinationDir);
+            SetExternalCommand = new RelayCommand(SetExternalFilePath);
             Files = new();
-            
            
+        }
+
+        private void SetExternalFilePath()
+        {
+            var ofd = new FolderBrowserDialog();
+            ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                ExternalFilePath = ofd.SelectedPath;
+
+            }
         }
 
         private void SetDestinationDir()
@@ -77,19 +104,6 @@ namespace Image_Utility.ViewModels
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 DestinationDir = ofd.SelectedPath;
-                var files = Directory.GetFiles(SourceDir);
-                var count = 1;
-                foreach (var file in files)
-                {
-                    Files.Add(new File
-                    {
-                        fileName = file,
-                        newFileName = $"image-{count}.png",
-                        sourceDest = SourceDir,
-                        destination = DestinationDir
-                    });
-                    count++;
-                }
                 
             }
         }

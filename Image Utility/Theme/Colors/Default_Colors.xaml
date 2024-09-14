@@ -11,6 +11,7 @@
     <Color x:Key="Primary800">#8c8c8c</Color>
     <Color x:Key="Primary900">#9c9c9c</Color>
     <Color x:Key="Secondary">#2F3540</Color>
+    <Color x:Key="SecondaryIsSelected">#3B414C</Color>
     <Color x:Key="Secondary100">#B4B7BF</Color>
     <Color x:Key="Secondary500">#4D5159</Color>
     <Color x:Key="Accent">#6ad104</Color>
@@ -25,6 +26,7 @@
     <Color x:Key="SecondaryAccent300">#b79500</Color>
     <Color x:Key="SecondaryAccent400">#9b7f00</Color>
     <Color x:Key="SecondaryAccent500">#8c7200</Color>
+    <Color x:Key="Green">#3ca8a9</Color>
 
     <Color x:Key="Grey">#9C9CA6</Color>
 
@@ -39,9 +41,11 @@
     <SolidColorBrush x:Key="Primary800ColorBrush" Color="{StaticResource Primary800}" />
     <SolidColorBrush x:Key="Primary900ColorBrush" Color="{StaticResource Primary900}" />
     <SolidColorBrush x:Key="SecondaryColorBrush" Color="{StaticResource Secondary}" />
+    <SolidColorBrush x:Key="SecondaryColorBrushIsSelected" Color="{StaticResource SecondaryIsSelected}" />
     <SolidColorBrush x:Key="SecondaryColorBrush100" Color="{StaticResource Secondary100}" />
     <SolidColorBrush x:Key="SecondaryColorBrush500" Color="{StaticResource Secondary500}" />
     <SolidColorBrush x:Key="GreyColorBrush" Color="{StaticResource Grey}" />
+    <SolidColorBrush x:Key="GreenColorBrush" Color="{StaticResource Green}" />
     <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource Accent}" />
     <SolidColorBrush x:Key="SecondaryAccentColorBrush" Color="{StaticResource SecondaryAccent}" />
 

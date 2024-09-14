@@ -19,10 +19,11 @@
     </Window.Resources>
     
     <Grid Background="{StaticResource PrimaryColorBrush}">
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
             <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="20" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
@@ -57,10 +58,8 @@
                     <RowDefinition Height="90"/>
                 </Grid.RowDefinitions>
                 
-                <Button Width="80"
+                <RadioButton Width="120"
                         Height="80"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
                         Grid.Row="0"
                         Command="{Binding NavigateRenamerCommand}"
                         ToolTip="Renamer"
@@ -70,16 +69,15 @@
                         ToolTipService.VerticalOffset="24"
                         ToolTipService.HorizontalOffset="6"
                         HorizontalAlignment="Center"
-                        Padding="0">
+                        Padding="0"
+                        Style="{StaticResource HoverStyle}">
                     <fa:IconImage Icon="ArrowUpAZ"
                                   Foreground="DarkGray"
                                   Height="50"
                                   Width="50" />
-                </Button>
-                <Button Width="80"
+                </RadioButton>
+                <RadioButton Width="120"
                         Height="80"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
                         Grid.Row="1"
                         Command="{Binding NavigateDownloaderCommand}"
                         ToolTip="Downloader"
@@ -87,16 +85,15 @@
                         ToolTipService.Placement="Right"
                         ToolTipService.ShowDuration="2000"
                         ToolTipService.VerticalOffset="24"
-                        ToolTipService.HorizontalOffset="6">
+                        ToolTipService.HorizontalOffset="6"
+                        Style="{StaticResource HoverStyle}">
                     <fa:IconImage Icon="FileImage"
                                   Foreground="DarkGray"
                                   Height="50"
                                   Width="50" />
-                </Button>
-                <Button Width="80"
+                </RadioButton>
+                <RadioButton Width="120"
                         Height="80"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
                         Grid.Row="2"
                         Command="{Binding NavigateResizerCommand}"
                         ToolTip="Resizer"
@@ -104,16 +101,15 @@
                         ToolTipService.Placement="Right"
                         ToolTipService.ShowDuration="2000"
                         ToolTipService.VerticalOffset="24"
-                        ToolTipService.HorizontalOffset="6">
+                        ToolTipService.HorizontalOffset="6"
+                        Style="{StaticResource HoverStyle}">
                     <fa:IconImage Icon="TextHeight"
                                   Foreground="DarkGray"
                                   Height="50"
                                   Width="50" />
-                </Button>
-                <Button Width="80"
+                </RadioButton>
+                <RadioButton Width="120"
                         Height="80"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
                         Grid.Row="3"
                         Command="{Binding NavigateCompresserCommand}"
                         ToolTip="Compressor"
@@ -121,16 +117,15 @@
                         ToolTipService.Placement="Right"
                         ToolTipService.ShowDuration="2000"
                         ToolTipService.VerticalOffset="24"
-                        ToolTipService.HorizontalOffset="6">
+                        ToolTipService.HorizontalOffset="6"
+                        Style="{StaticResource HoverStyle}">
                     <fa:IconImage Icon="FileZipper"
                                   Foreground="DarkGray"
                                   Height="50"
                                   Width="50" />
-                </Button>
-                <Button Width="80"
+                </RadioButton>
+                <RadioButton Width="120"
                         Height="80"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
                         Grid.Row="6"
                         Command="{Binding NavigateSettingsCommand}"
                         ToolTip="Settings"
@@ -138,12 +133,13 @@
                         ToolTipService.Placement="Right"
                         ToolTipService.ShowDuration="2000"
                         ToolTipService.VerticalOffset="24"
-                        ToolTipService.HorizontalOffset="6">
+                        ToolTipService.HorizontalOffset="6"
+                        Style="{StaticResource HoverStyle}">
                     <fa:IconImage Icon="Gear"
                                   Foreground="DarkGray"
                                   Height="50"
                                   Width="50" />
-                </Button>
+                </RadioButton>
             </Grid>
            
         </Border>
@@ -152,7 +148,8 @@
         
         <!--#region Main Content -->
         <Grid Grid.Column="3"
-              Grid.Row="1">
+              Grid.Row="1"
+              Margin="20 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="142" />
                 <RowDefinition Height="*" />
@@ -195,7 +192,7 @@
                     Content="{Binding SelectedViewModel}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Margin="20">
+                Margin="-10 0">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type vm:RenamerViewModel}">
                         <v:RenamerView />

@@ -14,15 +14,20 @@
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
             <BeginStoryboard>
                 <Storyboard>
-                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:1" From="0" To="1" />
-                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Duration="0:0:1" From="0" To="100"/>
+                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" 
+                                     Storyboard.TargetName="AnimateGrid" Duration="0:0:0.2" From="-300" To="0"/>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.3" From="0" To="1" />
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
     </UserControl.Triggers>
-    <Grid Background="{StaticResource PrimaryColorBrush}">
+    <Grid Background="{StaticResource PrimaryColorBrush}"
+          Name="AnimateGrid">
+         <Grid.RenderTransform>
+            <TranslateTransform />
+         </Grid.RenderTransform>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
@@ -31,28 +36,47 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="80" />
         </Grid.RowDefinitions>
-        <TextBlock
-            Grid.Row="0"
-            Grid.Column="1"
-            Margin="10,10"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontSize="28"
-            Foreground="{StaticResource Primary900ColorBrush}"
-            Text="Re-Namer Options" />
+        <Grid Grid.Row="0"
+              Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="10,10"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       FontSize="28"
+                       Foreground="{StaticResource Primary900ColorBrush}"
+                       Text="Re-Namer Options" />
+            <Button Background="{StaticResource Primary200ColorBrush}"
+                    HorizontalAlignment="Left"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Height="50"
+                    Width="150"
+                    Foreground="{StaticResource GreenColorBrush}"
+                    Content="Start Renaming"
+                    BorderBrush="{StaticResource Primary500ColorBrush}"
+                    BorderThickness="1">
+
+            </Button>
+        </Grid>
+        
         <Grid
             Grid.Row="1"
             Grid.Column="1"
             Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="500"/>
                 <ColumnDefinition />
 
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="85" />
-                <RowDefinition Height="150"/>
-                <RowDefinition Height="40" />
+                <RowDefinition Height="90" />
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <!--#region Source/Destination Folder-->
@@ -63,9 +87,9 @@
                         >
                 <StackPanel Orientation="Horizontal" Height="40">
                     <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     md:HintAssist.Hint="Source"
+                     md:HintAssist.Hint="Image Source"
                      md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
-                     Foreground="{StaticResource Primary900ColorBrush}"
+                     Foreground="Orange"
                      Background="{StaticResource PrimaryColorBrush}"
                      BorderBrush="{StaticResource Primary700ColorBrush}"
                      Height="38" 
@@ -74,31 +98,37 @@
                      Padding="8"
                      Width="500"
                      HorizontalAlignment="Left"
-                     Text="{Binding SourceDir}"/>
+                     Text="{Binding SourceDir}"
+                     FontSize="14"/>
                     <Button Grid.Column="1"
                             Grid.Row="0"
                             Style="{StaticResource MaterialDesignFloatingActionButton}"
-                            Height="36"
-                            Width="36"
-                            Content=". . ."
+                            Height="30"
+                            Width="30"
                             BorderBrush="Transparent"
-                            Foreground="{StaticResource Primary800ColorBrush}" 
+                            Foreground="{StaticResource GreenColorBrush}" 
                             Background="{StaticResource SecondaryColorBrush}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Margin="10 -3 0 0"
-                            Command="{Binding OpenSourceFolderCommand}"/>
+                            Command="{Binding OpenSourceFolderCommand}">
+                        <md:PackIcon Kind="Folder"
+                                     Width="20"
+                                     Height="20"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" />
+                    </Button>
                     <TextBlock Grid.Column="1"
                                Text="Files"
                                FontSize="16"
-                               Foreground="{StaticResource AccentColorBrush}"
+                               Foreground="{StaticResource SecondaryColorBrush}"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center" 
                                Margin="10 -3 0 0"/>
                     <TextBlock Grid.Column="1"
                                Text="{Binding FileCount, FallbackValue=0}"
                                FontSize="16"
-                               Foreground="{StaticResource AccentColorBrush}"
+                               Foreground="{StaticResource SecondaryColorBrush}"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center" 
                                Margin="20 -3 0 0"/>
@@ -107,9 +137,9 @@
                             Height="40"
                             Margin="0 4">
                     <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             md:HintAssist.Hint="Destination"
+                             md:HintAssist.Hint="Save Destination"
                              md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
-                             Foreground="{StaticResource Primary900ColorBrush}"
+                             Foreground="Orange"
                              Background="{StaticResource PrimaryColorBrush}"
                              BorderBrush="{StaticResource Primary700ColorBrush}"
                              Height="38" 
@@ -118,29 +148,96 @@
                              Width="500"
                              HorizontalAlignment="Left"
                              Text="{Binding DestinationDir}"
-                             Padding="8"/>
+                             Padding="8"
+                             FontSize="14"/>
                     <Button Grid.Column="1"
                             Grid.Row="0"
                             Style="{StaticResource MaterialDesignFloatingActionButton}"
-                            Height="36"
-                            Width="36"
-                            Content=". . ."
+                            Height="30"
+                            Width="30"
                             BorderBrush="Transparent"
-                            Foreground="{StaticResource Primary800ColorBrush}" 
+                            Foreground="{StaticResource GreenColorBrush}" 
                             Background="{StaticResource SecondaryColorBrush}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Margin="10 -3 0 0"
-                            Command="{Binding SetDestinationFolderCommand}"/>
+                            Command="{Binding SetDestinationFolderCommand}">
+                         <md:PackIcon Kind="Folder"
+                                      Width="20"
+                                      Height="20"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center" />
+                    </Button>
 
                 </StackPanel>
             </StackPanel>
 
             <!--#endregion-->
 
-            <!--#region MATCH FOR-->
+            <!--#region USE EXTERNAL TXT-->
+            <StackPanel Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Orientation="Horizontal"
+                        Height="50"
+                        Width="550"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left">
+                <CheckBox Style="{StaticResource MaterialDesignActionDarkCheckBox}"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Center"
+                          Margin="0 4 0 0"
+                          FontSize="18"
+                          Foreground="Orange"
+                          Background="{StaticResource SecondaryColorBrush}"
+                          Height="30"
+                          Width="30"
+                          IsChecked="{Binding UseExternal}"
+                          VerticalContentAlignment="Center"/>
+                <TextBlock Text="Use External Txt File"
+                           FontSize="18"
+                           Foreground="{StaticResource Primary500ColorBrush}"
+                           FontWeight="Bold"
+                           Margin="10 2 0 0" 
+                           Height="20"/>
+                <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         md:HintAssist.Hint="External Txt File"
+                         md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
+                         Foreground="Orange"
+                         Background="{StaticResource PrimaryColorBrush}"
+                         BorderBrush="{StaticResource Primary700ColorBrush}"
+                         Height="38" 
+                         Width="274"
+                         HorizontalAlignment="Left"
+                         Text="{Binding ExternalFilePath}"
+                         Padding="8"
+                         FontSize="14"
+                         Margin="14 0 2 0"
+                         IsEnabled="{Binding UseExternal}"/>
+                <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Height="30"
+                        Width="30"
+                        BorderBrush="Transparent"
+                        Foreground="{StaticResource GreenColorBrush}" 
+                        Background="{StaticResource SecondaryColorBrush}"
+                        VerticalAlignment="Center"
+                        Margin="10 0"
+                        IsEnabled="{Binding UseExternal}"
+                        Command="{Binding SetExternalCommand}">
+                     <md:PackIcon Kind="File"
+                                  Width="20"
+                                  Height="20"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" />
+                </Button>
+            </StackPanel>
+            
 
-            <Border Width="300"
+
+            <!--#endregion-->
+            
+            <!--#region MATCH FOR-->
+            
+            <Border Width="400"
                     Height="125"
                     Grid.Row="1"
                     Grid.Column="0"
@@ -148,7 +245,9 @@
                     Background="{StaticResource PrimaryColorBrush}"
                     BorderThickness="1"
                     CornerRadius="4"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Left"
+                    Margin="0 10">
 
 
                 <Grid>
@@ -175,7 +274,7 @@
                              Height="40"
                              Style="{StaticResource RoundCornerTextBox}"
                              Foreground="{StaticResource Primary900ColorBrush}"
-                             
+                             CaretBrush="{StaticResource Primary900ColorBrush}"
                              BorderBrush="{StaticResource Primary700ColorBrush}"
                              VerticalAlignment="Center"
                              Margin="0 6 4 0"
@@ -199,7 +298,7 @@
                              TextAlignment="Justify"
                              FontSize="20"
                              Foreground="{StaticResource Primary900ColorBrush}"
-                             
+                             CaretBrush="{StaticResource Primary900ColorBrush}"
                              BorderBrush="{StaticResource Primary700ColorBrush}"
                              Text="{Binding ReplaceWith, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
@@ -210,8 +309,7 @@
             <ListView Grid.Column="0"
                       Grid.Row="2"
                       Grid.ColumnSpan="2"
-                      ItemsSource="{Binding Files}" 
-                      Margin="0,0,0,-235">
+                      ItemsSource="{Binding Files}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="FileName" DisplayMemberBinding="{Binding fileName}"/>
