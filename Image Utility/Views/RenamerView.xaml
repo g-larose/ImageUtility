@@ -6,9 +6,14 @@
     xmlns:local="clr-namespace:Image_Utility.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:converter="clr-namespace:Image_Utility.Converters"
     Width="1000"
     Height="600"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <converter:MultiValueConverter x:Key="multiValueConverter" />
+    </UserControl.Resources>
 
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
@@ -34,7 +39,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="80" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
               Grid.Column="1">
@@ -49,17 +54,25 @@
                        VerticalAlignment="Top"
                        FontSize="28"
                        Foreground="{StaticResource Primary900ColorBrush}"
-                       Text="Re-Namer Options" />
+                       Text="ReNamer Options" />
             <Button Background="{StaticResource Primary200ColorBrush}"
                     HorizontalAlignment="Left"
                     Grid.Column="1"
                     Grid.Row="0"
                     Height="50"
-                    Width="150"
+                    Width="156"
                     Foreground="{StaticResource GreenColorBrush}"
+                    FontSize="18"
                     Content="Start Renaming"
                     BorderBrush="{StaticResource Primary500ColorBrush}"
-                    BorderThickness="1">
+                    BorderThickness="1"
+                    Command="{Binding StartRenamingCommand}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource multiValueConverter}">
+                        <Binding ElementName="txtSourceDir" Path="Text" />
+                        <Binding ElementName="txtDestDir" Path="Text" />
+                    </MultiBinding>
+                </Button.IsEnabled>
 
             </Button>
         </Grid>
@@ -86,20 +99,21 @@
                         Grid.ColumnSpan="2"
                         >
                 <StackPanel Orientation="Horizontal" Height="40">
-                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     md:HintAssist.Hint="Image Source"
-                     md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
-                     Foreground="Orange"
-                     Background="{StaticResource PrimaryColorBrush}"
-                     BorderBrush="{StaticResource Primary700ColorBrush}"
-                     Height="38" 
-                     Grid.Column="0"
-                     Grid.Row="0"
-                     Padding="8"
-                     Width="500"
-                     HorizontalAlignment="Left"
-                     Text="{Binding SourceDir}"
-                     FontSize="14"/>
+                    <TextBox Name="txtSourceDir"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             md:HintAssist.Hint="Image Source"
+                             md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
+                             Foreground="Orange"
+                             Background="{StaticResource PrimaryColorBrush}"
+                             BorderBrush="{StaticResource Primary700ColorBrush}"
+                             Height="38" 
+                             Grid.Column="0"
+                             Grid.Row="0"
+                             Padding="8"
+                             Width="500"
+                             HorizontalAlignment="Left"
+                             Text="{Binding SourceDir}"
+                             FontSize="14"/>
                     <Button Grid.Column="1"
                             Grid.Row="0"
                             Style="{StaticResource MaterialDesignFloatingActionButton}"
@@ -107,7 +121,7 @@
                             Width="30"
                             BorderBrush="Transparent"
                             Foreground="{StaticResource GreenColorBrush}" 
-                            Background="{StaticResource SecondaryColorBrush}"
+                            Background="Transparent"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Margin="10 -3 0 0"
@@ -136,7 +150,8 @@
                 <StackPanel Orientation="Horizontal" 
                             Height="40"
                             Margin="0 4">
-                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    <TextBox Name="txtDestDir"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              md:HintAssist.Hint="Save Destination"
                              md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
                              Foreground="Orange"
@@ -157,7 +172,7 @@
                             Width="30"
                             BorderBrush="Transparent"
                             Foreground="{StaticResource GreenColorBrush}" 
-                            Background="{StaticResource SecondaryColorBrush}"
+                            Background="Transparent"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Margin="10 -3 0 0"
@@ -179,7 +194,7 @@
                         Grid.ColumnSpan="2"
                         Orientation="Horizontal"
                         Height="50"
-                        Width="550"
+                        Width="Auto"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Left">
                 <CheckBox Style="{StaticResource MaterialDesignActionDarkCheckBox}"
@@ -218,7 +233,7 @@
                         Width="30"
                         BorderBrush="Transparent"
                         Foreground="{StaticResource GreenColorBrush}" 
-                        Background="{StaticResource SecondaryColorBrush}"
+                        Background="Transparent"
                         VerticalAlignment="Center"
                         Margin="10 0"
                         IsEnabled="{Binding UseExternal}"
@@ -229,6 +244,11 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center" />
                 </Button>
+                <TextBlock Text="?"
+                           Foreground="{StaticResource GreenColorBrush}"
+                           FontSize="18" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
             </StackPanel>
             
 
@@ -247,7 +267,7 @@
                     CornerRadius="4"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Left"
-                    Margin="0 10">
+                    Margin="6 10">
 
 
                 <Grid>
