@@ -10,5 +10,8 @@ namespace Image_Utility.Models
     {
         public string? MatchFor { get; set; }
         public string? ReplaceWith { get; set; }
+        public string? OldExt { get; set; }
+        public string? NewExt { get; set; }
+
     }
 }

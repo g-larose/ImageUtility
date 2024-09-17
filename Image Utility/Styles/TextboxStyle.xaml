@@ -6,7 +6,7 @@
         <Setter Property="Foreground" Value="{StaticResource Primary900ColorBrush}" />
         <Setter Property="FontSize" Value="20" />
         <Setter Property="MinHeight" Value="20" />
-        <Setter Property="MinWidth" Value="150" />
+        <Setter Property="MinWidth" Value="100" />
         <Setter Property="FontWeight" Value="Bold" />
 
         <Setter Property="Template">
@@ -14,6 +14,8 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border
                         x:Name="border"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
                         Background="{StaticResource PrimaryColorBrush}"
                         BorderBrush="{StaticResource Primary700ColorBrush}"
                         BorderThickness="0,0,0,1"

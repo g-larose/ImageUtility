@@ -23,6 +23,7 @@ namespace Image_Utility.ViewModels
         public ICommand SetExternalCommand { get; }
         public ICommand StartRenamingCommand { get; }
 
+        #region Auto Properties
         private ObservableCollection<File> _files;
         public ObservableCollection<File> Files
         {
@@ -85,10 +86,26 @@ namespace Image_Utility.ViewModels
             get => _statusMessage;
             set => OnPropertyChanged(ref _statusMessage, value);
         }
+
+        private string _oldExt;
+        public string OldExt
+        {
+            get => _oldExt;
+            set => OnPropertyChanged(ref _oldExt, value);
+        }
+
+        private string _newExt;
+        public string NewExt
+        {
+            get => _newExt;
+            set => OnPropertyChanged(ref _newExt, value);
+        }
+        #endregion
+
         public RenamerViewModel(INavigator? navigator)
         {
             _navigator = navigator;
-            OpenSourceFolderCommand = new RelayCommand(OpenFileBrowser);
+            OpenSourceFolderCommand = new RelayCommand(OpenFolderBrowser);
             SetDestinationFolderCommand = new RelayCommand(SetDestinationDir);
             SetExternalCommand = new RelayCommand(SetExternalFilePath);
             StartRenamingCommand = new AsyncRelayCommand(Rename, (ex) => StatusMessage = ex.Message);
@@ -99,10 +116,17 @@ namespace Image_Utility.ViewModels
         private async Task Rename()
         {
             var renamerService = new FileRenamerService();
-            var options = new RenamOptions() { MatchFor = MatchFor, ReplaceWith = ReplaceWith };
+            var options = new RenamOptions() { MatchFor = MatchFor, ReplaceWith = ReplaceWith, OldExt = OldExt, NewExt = NewExt };
 
-            var files = Directory.GetFiles(SourceDir, ".txt", searchOption: SearchOption.TopDirectoryOnly);
-            await renamerService.RenameFiles(files, DestinationDir, options, false);
+            var files = Directory.GetFiles(SourceDir);
+            await renamerService.RenameFilesAsync(files, DestinationDir, options);
+
+            SourceDir = "";
+            DestinationDir = "";
+            MatchFor = "";
+            ReplaceWith = "";
+            OldExt = "";
+            NewExt = "";
         }
 
         private void SetExternalFilePath()
@@ -129,7 +153,7 @@ namespace Image_Utility.ViewModels
             }
         }
 
-        private void OpenFileBrowser()
+        private void OpenFolderBrowser()
         {
             //var ofd = new OpenFileDialog();
             //ofd.Filter = "Image files (*.jpg;*.png)|*.jpg;*.png|All files (*.*)|*.*";
