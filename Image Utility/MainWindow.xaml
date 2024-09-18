@@ -57,25 +57,29 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="90"/>
                 </Grid.RowDefinitions>
-                
-                <RadioButton Width="120"
-                        Height="80"
-                        Grid.Row="0"
-                        Command="{Binding NavigateRenamerCommand}"
-                        ToolTip="Renamer"
-                        ToolTipService.HasDropShadow="True"
-                        ToolTipService.Placement="Right"
-                        ToolTipService.ShowDuration="2000"
-                        ToolTipService.VerticalOffset="24"
-                        ToolTipService.HorizontalOffset="6"
-                        HorizontalAlignment="Center"
-                        Padding="0"
-                        Style="{StaticResource HoverStyle}">
+
+                   
+                <RadioButton Grid.Row="0"
+                             Width="120"
+                             Height="80"
+                             Command="{Binding NavigateRenamerCommand}"
+                             ToolTip="Renamer"
+                             ToolTipService.HasDropShadow="True"
+                             ToolTipService.Placement="Right"
+                             ToolTipService.ShowDuration="2000"
+                             ToolTipService.VerticalOffset="24"
+                             ToolTipService.HorizontalOffset="6"
+                             HorizontalAlignment="Center"
+                             Padding="0"
+                             Style="{StaticResource HoverStyle}">
                     <fa:IconImage Icon="ArrowUpAZ"
                                   Foreground="DarkGray"
                                   Height="50"
-                                  Width="50" />
+                                  Width="50" 
+                                  Margin="30 0"/>
                 </RadioButton>
+
+                
                 <RadioButton Width="120"
                         Height="80"
                         Grid.Row="1"
@@ -90,7 +94,8 @@
                     <fa:IconImage Icon="FileImage"
                                   Foreground="DarkGray"
                                   Height="50"
-                                  Width="50" />
+                                  Width="50"
+                                  Margin="30 0"/>
                 </RadioButton>
                 <RadioButton Width="120"
                         Height="80"
@@ -106,7 +111,8 @@
                     <fa:IconImage Icon="TextHeight"
                                   Foreground="DarkGray"
                                   Height="50"
-                                  Width="50" />
+                                  Width="50" 
+                                  Margin="30 0"/>
                 </RadioButton>
                 <RadioButton Width="120"
                         Height="80"
@@ -122,7 +128,8 @@
                     <fa:IconImage Icon="FileZipper"
                                   Foreground="DarkGray"
                                   Height="50"
-                                  Width="50" />
+                                  Width="50" 
+                                  Margin="30 0"/>
                 </RadioButton>
                 <RadioButton Width="120"
                         Height="80"
@@ -138,7 +145,8 @@
                     <fa:IconImage Icon="Gear"
                                   Foreground="DarkGray"
                                   Height="50"
-                                  Width="50" />
+                                  Width="50" 
+                                  Margin="30 0"/>
                 </RadioButton>
             </Grid>
            
