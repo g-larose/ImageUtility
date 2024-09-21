@@ -1,4 +1,5 @@
 ﻿using Image_Utility.Commands;
+using Image_Utility.Components;
 using Image_Utility.Interfaces;
 using Image_Utility.Models;
 using Image_Utility.Services;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -100,6 +102,27 @@ namespace Image_Utility.ViewModels
             get => _newExt;
             set => OnPropertyChanged(ref _newExt, value);
         }
+
+        private bool _isExecuting;
+        public bool IsExecuting
+        {
+            get => _isExecuting;
+            set => OnPropertyChanged(ref _isExecuting, value);
+        }
+
+        private double _progressValue;
+        public double ProgressValue
+        {
+            get => _progressValue;
+            set => OnPropertyChanged(ref _progressValue, value);
+        }
+
+        private bool _isProgressVisible;
+        public bool IsProgressVisible
+        {
+            get => _isProgressVisible;
+            set => OnPropertyChanged(ref _isProgressVisible, value);
+        }
         #endregion
 
         public RenamerViewModel(INavigator? navigator)
@@ -110,16 +133,25 @@ namespace Image_Utility.ViewModels
             SetExternalCommand = new RelayCommand(SetExternalFilePath);
             StartRenamingCommand = new AsyncRelayCommand(Rename, (ex) => StatusMessage = ex.Message);
             Files = new();
+
            
         }
 
         private async Task Rename()
         {
+            IsProgressVisible = true;
             var renamerService = new FileRenamerService();
             var options = new RenamOptions() { MatchFor = MatchFor, ReplaceWith = ReplaceWith, OldExt = OldExt, NewExt = NewExt };
 
             var files = Directory.GetFiles(SourceDir);
-            await renamerService.RenameFilesAsync(files, DestinationDir, options);
+            var fileCount = files.Length;
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                 await renamerService.RenameFileAsync(files[i], DestinationDir, options);
+                 ProgressValue = ((double)i * 100 / fileCount);
+                 var test = "";
+            }
 
             SourceDir = "";
             DestinationDir = "";
@@ -127,6 +159,7 @@ namespace Image_Utility.ViewModels
             ReplaceWith = "";
             OldExt = "";
             NewExt = "";
+            IsProgressVisible = false;
         }
 
         private void SetExternalFilePath()

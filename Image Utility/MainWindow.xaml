@@ -18,7 +18,7 @@
         <converter:BoolToColorConverter x:Key="boolToColorConverter" />
     </Window.Resources>
     
-    <Grid Background="{StaticResource PrimaryColorBrush}">
+    <Grid Background="{StaticResource PrimaryToSecondaryGradientBrush}">
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />

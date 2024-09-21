@@ -13,9 +13,31 @@ namespace Image_Utility.Services
 {
     public class FileRenamerService : IRenamer
     {
-        public async Task<bool> RenameFileAsync(string filePath)
+        public async Task<bool> RenameFileAsync(string filePath, string dest, RenamOptions options, [Optional]bool useExternal)
         {
-            throw new NotImplementedException();
+            if (File.Exists(filePath))
+            {
+                string file = filePath;
+                int index = file.LastIndexOf("\\");
+                string fileName = file.Substring(index + 1);
+                string newFileName = fileName.Replace(options.MatchFor!, options.ReplaceWith).Replace(options.OldExt!, options.NewExt);
+
+                await Task.Run(() =>
+                {
+                    try
+                    {
+                        File.Copy(file, $"{dest}\\{newFileName}");
+                    }
+                    catch (Exception e)
+                    {
+                        var mess = e.Message;
+                    }
+
+                });
+                return true;
+
+            }
+            return false;
         }
 
         public async Task<bool> RenameFilesAsync(string[] files, string dest, RenamOptions options, [Optional]bool useExternal)
@@ -30,12 +52,13 @@ namespace Image_Utility.Services
                     string newFileName = fileName.Replace(options.MatchFor!, options.ReplaceWith).Replace(options.OldExt!, options.NewExt);
 
                     await Task.Run(() => File.Copy(file, $"{dest}\\{newFileName}"));
-                    string temp = "";
+                    return true;
+
                 }
                 
             }
 
-            return true;
+            return false;
         }
 
 

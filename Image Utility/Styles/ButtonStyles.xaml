@@ -11,22 +11,28 @@
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
                     <Grid>
-                        <Grid.ColumnDefinitions>
+                        <!--<Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{StaticResource GreenColorBrush}"
-                                BorderThickness="2 0 0 0"
-                                Height="80"
-                                Name="indicator"
-                                CornerRadius="2">
+
+                        </Grid.ColumnDefinitions>-->
+                        <Border
+                            Name="indicator"
+                            Height="80"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{StaticResource GreenColorBrush}"
+                            BorderThickness="2,0,0,0"
+                            CornerRadius="2">
 
                             <Border.Triggers>
                                 <EventTrigger RoutedEvent="MouseEnter">
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Height" Storyboard.TargetName="indicator" From="80" To="0" Duration="0:0:2">
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="indicator"
+                                                Storyboard.TargetProperty="Height"
+                                                From="60"
+                                                To="20"
+                                                Duration="0:0:0.3">
                                                 <DoubleAnimation.EasingFunction>
                                                     <ElasticEase EasingMode="EaseOut" />
                                                 </DoubleAnimation.EasingFunction>
@@ -37,13 +43,12 @@
                                 <EventTrigger RoutedEvent="MouseLeave">
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Height" Storyboard.TargetName="indicator"
-                                                             From="0"
-                                                             To="80" Duration="0:0:0.3">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <ElasticEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="indicator"
+                                                Storyboard.TargetProperty="Height"
+                                                From="20"
+                                                To="60"
+                                                Duration="0:0:0.3" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </EventTrigger>
@@ -52,13 +57,13 @@
                         </Border>
                         <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
                     </Grid>
-                    
+
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Margin" Value="0,0,0,0" />
                             <Setter Property="Cursor" Value="Hand" />
                             <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="BorderBrush" Value="{StaticResource GreenColorBrush}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource GreenColorBrush}" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Margin" Value="0,0,0,0" />
