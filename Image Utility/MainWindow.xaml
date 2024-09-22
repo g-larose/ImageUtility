@@ -165,9 +165,9 @@
             <StackPanel Grid.Row="0"
                         Orientation="Vertical">
                 <StackPanel Orientation="Horizontal"
-                        Grid.Row="0">
+                            Grid.Row="0">
                     <Border CornerRadius="12"
-                               Background="Transparent">
+                            Background="Transparent">
                         <Image Source="/Assets/PNG/logo.png"
                                HorizontalAlignment="Left"
                                Height="128">
@@ -180,7 +180,7 @@
                             </Image.Effect>
                         </Image>
                     </Border>
-                    <TextBlock Text="Image Utility"
+                    <TextBlock Text="Image Utility Pro"
                                FontSize="92"
                                Foreground="{StaticResource Primary900ColorBrush}" 
                                VerticalAlignment="Center"
@@ -200,7 +200,7 @@
                     Content="{Binding SelectedViewModel}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                Margin="-10 0">
+                    Margin="-10 0">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type vm:RenamerViewModel}">
                         <v:RenamerView />
