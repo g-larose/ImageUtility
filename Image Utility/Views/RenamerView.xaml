@@ -9,7 +9,7 @@
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:components="clr-namespace:Image_Utility.Components"
     Width="1000"
-    Height="800"
+    Height="700"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -64,14 +64,42 @@
             </Grid.RowDefinitions>
             
             <!--#region HEADER-->
-            <StackPanel Grid.Row="0"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Left">
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
                 <TextBlock Text="Renamer Options"
                            FontSize="30"
                            Foreground="{StaticResource Primary900ColorBrush}"
                            Margin="0 10" />
-            </StackPanel>
+
+                <Button Grid.Column="2"
+                        md:ButtonProgressAssist.IsIndicatorVisible="True"
+                        md:ButtonProgressAssist.Value="{Binding ProgressValue}" 
+                        md:ButtonProgressAssist.IndicatorForeground="{StaticResource SecondaryAccentColorBrush}"
+                        Foreground="{StaticResource PrimaryColorBrush}"
+                        Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}" 
+                        HorizontalAlignment="Left"
+                        Command="{Binding StartRenamingCommand}">
+                    <Button.Content>
+                        <md:PackIcon Kind="RunFast" 
+                                     Height="30"
+                                     Width="30" />
+                    </Button.Content>
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource multiValueConverter}">
+                            <Binding ElementName="txtSourceDir" Path="Text" />
+                            <Binding ElementName="txtDestDir" Path="Text" />
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                </Button>
+            </Grid>
+
+                
+                
+
             <!--#endregion-->
             
             <!--#region SOURCE/DESTINATION USE EXTERNAL CONTROLS-->
@@ -297,7 +325,8 @@
                     <Border Grid.Row="1"
                             Background="{StaticResource PrimaryColorBrush}"
                             BorderBrush="{StaticResource Primary500ColorBrush}"
-                            BorderThickness=".5 0 .5 .5">
+                            BorderThickness=".5 0 .5 .5"
+                            CornerRadius="0 0 10 10">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="10"
                                               ShadowDepth="4"
@@ -316,36 +345,29 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Margin="0 6 0 0">
-                                <TextBlock Margin="0,0,4,0"
-                                           HorizontalAlignment="Right"
-                                           VerticalAlignment="Center"
-                                           FontSize="16"
-                                           Foreground="{StaticResource Primary900ColorBrush}"
-                                           Text="Match:" />
-                                <TextBox Height="30"
-                                         Margin="12,0,0,4"
-                                         Padding="4"
-                                         VerticalAlignment="Center"
-                                         BorderBrush="{StaticResource Primary700ColorBrush}"
-                                         CaretBrush="{StaticResource Primary900ColorBrush}"
-                                         FontSize="16"
-                                         Foreground="{StaticResource Primary900ColorBrush}"
-                                         Style="{StaticResource RoundCornerTextBox}"
-                                         Text="{Binding MatchFor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Button Background="Transparent"
-                                        BorderBrush="Transparent"
-                                        Padding="0"
-                                        Width="20"
-                                        Height="20"
-                                        Margin="4 0">
-                                    <md:PackIcon Kind="Close"
-                                                 Foreground="Red"
-                                                 Height="14"
-                                                 Width="14" 
-                                                 HorizontalAlignment="Center"
-                                                 VerticalAlignment="Center"
-                                                 Padding="0"/>
-                                </Button>
+                               
+                                <TextBox VerticalAlignment="Center"
+                                         md:TextFieldAssist.HasClearButton="True"
+                                         md:TextFieldAssist.PrefixText="?" 
+                                         md:TextFieldAssist.UnderlineBrush="{StaticResource GreenColorBrush}"
+                                         BorderBrush="{StaticResource GreenColorBrush}"
+                                         BorderThickness="0 0 0 .3"
+                                         FontSize="14"
+                                         Foreground="{StaticResource Primary700ColorBrush}"
+                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                         Text="{Binding MatchFor}"
+                                         Width="160">
+                                    <md:HintAssist.Hint>
+                                        <StackPanel
+                                                    Margin="-2,0,0,0"
+                                                    Orientation="Horizontal">
+                                            <md:PackIcon Kind="FormatLetterMatches" 
+                                                         Margin="0 2 4 0"/>
+                                            <TextBlock Text="Match" />
+                                        </StackPanel>
+                                    </md:HintAssist.Hint>
+                                </TextBox>
+                                
                             </StackPanel>
                             <!--#endregion-->
                             
@@ -353,32 +375,26 @@
                             <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         Margin="0 6 0 0">
-                                <TextBlock HorizontalAlignment="Right"
-                                           VerticalAlignment="Center"
-                                           FontSize="16"
-                                           Foreground="{StaticResource Primary900ColorBrush}"
-                                           Text="Replace:" />
-                                <TextBox Height="30"
-                                         BorderBrush="{StaticResource Primary700ColorBrush}"
-                                         CaretBrush="{StaticResource Primary900ColorBrush}"
-                                         FontSize="16"
-                                         Padding="4"
-                                         Foreground="{StaticResource Primary900ColorBrush}"
-                                         Style="{StaticResource RoundCornerTextBox}"
-                                         Text="{Binding ReplaceWith, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Button Background="Transparent"
-                                        BorderBrush="Transparent"
-                                        Padding="0"
-                                        Width="20"
-                                        Height="20">
-                                    <md:PackIcon Kind="Close"
-                                                 Foreground="Red"
-                                                 Height="14"
-                                                 Width="14" 
-                                                 HorizontalAlignment="Center"
-                                                 VerticalAlignment="Center"
-                                                 Padding="0"/>
-                                </Button>
+                                <TextBox VerticalAlignment="Center"
+                                         md:TextFieldAssist.HasClearButton="True"
+                                         md:TextFieldAssist.PrefixText="?"
+                                         BorderBrush="{StaticResource GreenColorBrush}"
+                                         BorderThickness="0 0 0 .3"
+                                         FontSize="14"
+                                         Foreground="{StaticResource Primary700ColorBrush}"
+                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                         Text="{Binding ReplaceWith}"
+                                         Width="160">
+                                    <md:HintAssist.Hint>
+                                        <StackPanel Margin="-2 0 0 0"
+                                                    Orientation="Horizontal">
+                                            <md:PackIcon Kind="FindReplace" 
+                                                         Margin="0 2 4 0"/>
+                                            <TextBlock Text="Replace With" />
+                                        </StackPanel>
+                                    </md:HintAssist.Hint>
+                                </TextBox>
+                                
                             </StackPanel>
                             <!--#endregion-->
                             
@@ -407,7 +423,8 @@
                     <Border Grid.Row="1"
                             Background="{StaticResource PrimaryColorBrush}"
                             BorderBrush="{StaticResource Primary500ColorBrush}"
-                            BorderThickness=".5 0 .5 .5">
+                            BorderThickness=".5 0 .5 .5"
+                            CornerRadius="0 0 10 10">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="10"
                                               ShadowDepth="4"
@@ -416,6 +433,65 @@
                                               Opacity=".4" />
                         </Border.Effect>
 
+                        <StackPanel Orientation="Vertical"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Height="90">
+                            <!--#region EXT FROM-->
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Margin="0 6 0 0">
+                                <TextBox VerticalAlignment="Center"
+                                         md:TextFieldAssist.HasClearButton="True"
+                                         md:TextFieldAssist.PrefixText="?"
+                                         BorderBrush="{StaticResource GreenColorBrush}"
+                                         BorderThickness="0 0 0 .3"
+                                         FontSize="14"
+                                         Foreground="{StaticResource Primary700ColorBrush}"
+                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                         Text="{Binding OldExt}"
+                                         Width="160">
+                                    <md:HintAssist.Hint>
+                                        <StackPanel Margin="-2 0 0 0"
+                                                    Orientation="Horizontal">
+                                            <md:PackIcon Kind="FormatLetterMatches" 
+                                                         Margin="0 2 4 0"/>
+                                            <TextBlock Text="From" />
+                                        </StackPanel>
+                                    </md:HintAssist.Hint>
+                                </TextBox>   
+                            </StackPanel>
+                            <!--#endregion-->
+    
+                            <!--#region EXT TO-->
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 6 0 0">
+                                 <TextBox VerticalAlignment="Center"
+                                          md:TextFieldAssist.HasClearButton="True"
+                                          md:TextFieldAssist.PrefixText="?"
+                                          BorderBrush="{StaticResource GreenColorBrush}"
+                                          BorderThickness="0 0 0 .3"
+                                          FontSize="14"
+                                          Foreground="{StaticResource Primary700ColorBrush}"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          Text="{Binding NewExt}"
+                                          Width="160">
+                                     <md:HintAssist.Hint>
+                                         <StackPanel Margin="-2 0 0 0"
+                                                     Orientation="Horizontal">
+                                             <md:PackIcon Kind="FindReplace" 
+                                                          Margin="0 2 4 0"/>
+                                             <TextBlock Text="To" />
+                                         </StackPanel>
+                                     </md:HintAssist.Hint>
+                                 </TextBox>     
+                            </StackPanel>
+                            <!--#endregion-->
+    
+                        </StackPanel>
                     </Border>
                 </Grid> 
                 <!--#endregion-->
@@ -440,7 +516,8 @@
                      <Border Grid.Row="1"
                              Background="{StaticResource PrimaryColorBrush}"
                              BorderBrush="{StaticResource Primary500ColorBrush}"
-                             BorderThickness=".5 0 .5 .5">
+                             BorderThickness=".5 0 .5 .5"
+                             CornerRadius="0 0 10 10">
                          <Border.Effect>
                              <DropShadowEffect BlurRadius="10"
                                                ShadowDepth="4"
@@ -455,19 +532,19 @@
                                     Margin="10 0">
                             <TextBlock Text="Start:"
                                        Foreground="{StaticResource Primary900ColorBrush}"
-                                       FontSize="18" 
+                                       FontSize="14" 
                                        VerticalAlignment="Center"/>
                                  <md:NumericUpDown Minimum="1"
                                                    Maximum="100000"
                                                    Foreground="{StaticResource Primary900ColorBrush}"
-                                                   FontSize="18"
-                                                   HorizontalAlignment="Center"/>
+                                                   FontSize="14"
+                                                   HorizontalAlignment="Center" />
                         </StackPanel>
 
                      </Border>
                  </Grid> 
                 <!--#endregion-->
-                
+
             </Grid>
             <!--#endregion-->
             
