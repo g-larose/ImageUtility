@@ -9,13 +9,14 @@
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:components="clr-namespace:Image_Utility.Components"
     Width="1000"
-    Height="600"
+    Height="800"
     mc:Ignorable="d">
 
     <UserControl.Resources>
         <converter:MultiValueConverter x:Key="multiValueConverter" />
     </UserControl.Resources>
 
+    <!--#region ANIMATION-->
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
             <BeginStoryboard>
@@ -27,507 +28,337 @@
                         To="0"
                         Duration="0:0:0.2" />
                     <DoubleAnimation
+                        Storyboard.TargetName="AnimateGrid"
                         Storyboard.TargetProperty="Opacity"
                         From="0"
                         To="1"
-                        Duration="0:0:0.3" />
+                        Duration="0:0:0.8" />
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
     </UserControl.Triggers>
-
-    <Grid Name="AnimateGrid" Background="Transparent">
-        <Grid.RenderTransform>
-            <TranslateTransform />
-        </Grid.RenderTransform>
+    <!--#endregion-->
+    
+    <!--#region Main Wrapper-->
+    <Grid Name="AnimateGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="20" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
+            <RowDefinition Height="20" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="0"
-                Margin="10,10"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                FontSize="28"
-                Foreground="{StaticResource Primary900ColorBrush}"
-                Text="ReNamer Options" />
-            <Button
-                Grid.Row="0"
-                Grid.Column="1"
-                Width="156"
-                Height="50"
-                HorizontalAlignment="Left"
-                Background="{StaticResource Primary200ColorBrush}"
-                BorderBrush="{StaticResource Primary500ColorBrush}"
-                BorderThickness="1"
-                Command="{Binding StartRenamingCommand}"
-                Content="Start Renaming"
-                FontSize="18"
-                Foreground="{StaticResource GreenColorBrush}">
-                <Button.IsEnabled>
-                    <MultiBinding Converter="{StaticResource multiValueConverter}">
-                        <Binding ElementName="txtSourceDir" Path="Text" />
-                        <Binding ElementName="txtDestDir" Path="Text" />
-                    </MultiBinding>
-                </Button.IsEnabled>
-
-            </Button>
-            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
-                        Margin="140 0 0 0"
-                        Width="250"
-                        Visibility="{Binding IsProgressVisible, Converter={StaticResource BooleanToVisibilityConverter}
-                        , FallbackValue=False}">
-                <ProgressBar Height="20" Width="250" 
-                             BorderBrush="{StaticResource GreenColorBrush}"
-                             BorderThickness=".5"
-                             Background="Transparent"
-                             VerticalAlignment="Top"
-                             IsIndeterminate="False"
-                             Value="{Binding Path=ProgressValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                             Orientation="Horizontal"
-                             Maximum="100"
-                             Minimum="0">
-                    <ProgressBar.Effect>
-                        <DropShadowEffect BlurRadius="16"
-                                          ShadowDepth="4"
-                                          Direction="270"
-                                          Color="Black"
-                                          Opacity=".4" />
-                    </ProgressBar.Effect>
-
-                </ProgressBar>
-                <StackPanel Orientation="Horizontal" 
-                    HorizontalAlignment="Center" 
-                    Margin="0 -18 0 0">
-                    <TextBlock 
-                       Foreground="WhiteSmoke" 
-                       Text="{Binding Path=ProgressValue, StringFormat={}{0:F0}%}"/>
-                    <!--<TextBlock Text="%"
-                       Foreground="WhiteSmoke"
-                       VerticalAlignment="Top" />-->
-                </StackPanel>
-            </StackPanel>
-
-
-        </Grid>
-
-        <Grid
-            Grid.Row="1"
-            Grid.Column="1"
-            Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="500" />
-                <ColumnDefinition />
-
-            </Grid.ColumnDefinitions>
+        <Grid.RenderTransform>
+            <TranslateTransform />
+        </Grid.RenderTransform>
+        
+        <Grid Grid.Column="1"
+              Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="90" />
-                <RowDefinition Height="200" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="180" />
+                <RowDefinition Height="160" />
             </Grid.RowDefinitions>
-
-            <!--#region Progress -->
             
-    
-            
+            <!--#region HEADER-->
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                <TextBlock Text="Renamer Options"
+                           FontSize="30"
+                           Foreground="{StaticResource Primary900ColorBrush}"
+                           Margin="0 10" />
+            </StackPanel>
             <!--#endregion-->
             
-            <!--#region Source/Destination Folder-->
-            <StackPanel
-                Grid.Row="0"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Orientation="Vertical">
-                <StackPanel Height="40" Orientation="Horizontal">
-                    <TextBox
-                        Name="txtSourceDir"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Width="500"
-                        Height="38"
-                        Padding="8"
-                        HorizontalAlignment="Left"
-                        md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
-                        md:HintAssist.Hint="Image Source"
-                        Background="{StaticResource PrimaryColorBrush}"
-                        BorderBrush="{StaticResource Primary700ColorBrush}"
-                        FontSize="14"
-                        Foreground="{StaticResource GreenColorBrush}"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding SourceDir}" />
-                    <Button
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Width="30"
-                        Height="30"
-                        Margin="10,-3,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Command="{Binding OpenSourceFolderCommand}"
-                        Foreground="{StaticResource GreenColorBrush}"
-                        Style="{StaticResource MaterialDesignFloatingActionButton}">
-                        <md:PackIcon
-                            Width="20"
-                            Height="20"
-                            HorizontalAlignment="Center"
+            <!--#region SOURCE/DESTINATION USE EXTERNAL CONTROLS-->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition /> <!--Source Row-->
+                    <RowDefinition /> <!-- Destination Row-->
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                
+                <!--#region Source-->
+                <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Left"
+                            Margin="0 4">
+                    <TextBox Name="txtSourceDir"
+                             Grid.Row="0"
+                             Grid.Column="0"
+                             Width="500"
+                             Height="38"
+                             Padding="8"
+                             HorizontalAlignment="Left"
+                             md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
+                             md:HintAssist.Hint="Image Source"
+                             Background="{StaticResource PrimaryColorBrush}"
+                             BorderBrush="{StaticResource Primary700ColorBrush}"
+                             FontSize="14"
+                             Foreground="{StaticResource GreenColorBrush}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding SourceDir}" />
+                    <Button Grid.Row="0"
+                            Width="30"
+                            Height="30"
+                            Margin="10,-3,0,0"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Kind="Folder" />
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Command="{Binding OpenSourceFolderCommand}"
+                            Foreground="{StaticResource GreenColorBrush}"
+                            Style="{StaticResource MaterialDesignFloatingActionButton}">
+                        <md:PackIcon Width="20"
+                                     Height="20"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     Kind="Folder" />
                     </Button>
-                    <TextBlock
-                        Grid.Column="1"
-                        Margin="10,-3,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Foreground="{StaticResource SecondaryColorBrush}"
-                        Text="Files" />
-                    <TextBlock
-                        Grid.Column="1"
-                        Margin="20,-3,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Foreground="{StaticResource SecondaryColorBrush}"
-                        Text="{Binding FileCount, FallbackValue=0}" />
+                    <TextBlock Grid.Column="1"
+                               Margin="20,-3,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="{StaticResource SecondaryColorBrush}"
+                               Text="{Binding FileCount, FallbackValue=0, StringFormat=Files {0}}" />
                 </StackPanel>
-                <StackPanel
-                    Height="40"
-                    Margin="0,4"
-                    Orientation="Horizontal">
-                    <TextBox
-                        Name="txtDestDir"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Width="500"
-                        Height="38"
-                        Padding="8"
-                        HorizontalAlignment="Left"
-                        md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
-                        md:HintAssist.Hint="Save Destination"
-                        Background="{StaticResource PrimaryColorBrush}"
-                        BorderBrush="{StaticResource Primary700ColorBrush}"
-                        FontSize="14"
-                        Foreground="{StaticResource GreenColorBrush}"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding DestinationDir}" />
-                    <Button
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Width="30"
-                        Height="30"
-                        Margin="10,-3,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Command="{Binding SetDestinationFolderCommand}"
-                        Foreground="{StaticResource GreenColorBrush}"
-                        Style="{StaticResource MaterialDesignFloatingActionButton}">
-                        <md:PackIcon
-                            Width="20"
-                            Height="20"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Kind="Folder" />
-                    </Button>
+                <!--#endregion-->
+                
+                <!--#region Destination -->
+                <StackPanel Grid.Row="1"
+                            Orientation="Horizontal"
+                            Margin="0 4">
+                    <TextBox Name="txtDestDir"
+                             Width="500"
+                             Height="38"
+                             Padding="8"
+                             HorizontalAlignment="Left"
+                             md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
+                             md:HintAssist.Hint="Save Destination"
+                             Background="{StaticResource PrimaryColorBrush}"
+                             BorderBrush="{StaticResource Primary700ColorBrush}"
+                             FontSize="14"
+                             Foreground="{StaticResource GreenColorBrush}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding DestinationDir}" />
+                 <Button Width="30"
+                         Height="30"
+                         Margin="10,-3,0,0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Background="Transparent"
+                         BorderBrush="Transparent"
+                         Command="{Binding SetDestinationFolderCommand}"
+                         Foreground="{StaticResource GreenColorBrush}"
+                         Style="{StaticResource MaterialDesignFloatingActionButton}">
+                     <md:PackIcon Width="20"
+                                  Height="20"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Kind="Folder" />
+                 </Button>
 
                 </StackPanel>
-            </StackPanel>
-
-            <!--#endregion-->
-
-            <!--#region USE EXTERNAL TXT-->
-            <StackPanel
-                Grid.Row="1"
-                Grid.ColumnSpan="2"
-                Width="Auto"
-                Height="50"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Orientation="Horizontal">
-                <CheckBox
-                    Width="30"
-                    Height="30"
-                    Margin="0,4,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Background="{StaticResource SecondaryColorBrush}"
-                    FontSize="18"
-                    Foreground="Orange"
-                    IsChecked="{Binding UseExternal}"
-                    Style="{StaticResource MaterialDesignActionDarkCheckBox}" />
-                <TextBlock
-                    Height="20"
-                    Margin="10,2,0,0"
-                    FontSize="18"
-                    FontWeight="Bold"
-                    Foreground="{StaticResource Primary500ColorBrush}"
-                    Text="Use External Txt File" />
-                <TextBox
-                    Width="274"
-                    Height="38"
-                    Margin="14,0,2,0"
-                    Padding="8"
-                    HorizontalAlignment="Left"
-                    md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
-                    md:HintAssist.Hint="External Txt File"
-                    Background="{StaticResource PrimaryColorBrush}"
-                    BorderBrush="{StaticResource Primary700ColorBrush}"
-                    FontSize="14"
-                    Foreground="{StaticResource GreenColorBrush}"
-                    IsEnabled="{Binding UseExternal}"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Text="{Binding ExternalFilePath}" />
-                <Button
-                    Width="30"
-                    Height="30"
-                    Margin="10,0"
-                    VerticalAlignment="Center"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    Command="{Binding SetExternalCommand}"
-                    Foreground="{StaticResource GreenColorBrush}"
-                    IsEnabled="{Binding UseExternal}"
-                    Style="{StaticResource MaterialDesignFloatingActionButton}">
-                    <md:PackIcon
-                        Width="20"
-                        Height="20"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Kind="File" />
-                </Button>
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    FontSize="18"
-                    Foreground="{StaticResource GreenColorBrush}"
-                    Text="?" />
-            </StackPanel>
-
-
-
-            <!--#endregion-->
-
-            <!--#region MATCH FOR-->
-
-            <Border
-                Grid.Row="1"
-                Grid.Column="0"
-                Width="300"
-                Height="125"
-                Margin="6,10"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Background="{StaticResource PrimaryColorBrush}"
-                BorderBrush="{StaticResource Primary600ColorBrush}"
-                BorderThickness="1"
-                CornerRadius="4">
-
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="10" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10" />
-                        <RowDefinition Height="60" />
-                        <RowDefinition Height="60" />
-
-                    </Grid.RowDefinitions>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="4"
-                        Margin="0,-2,0,0"
-                        Background="{StaticResource GreenColorBrush}"
-                        CornerRadius="2 0 0 2">
-                        <TextBlock
-                            Margin="0,-1,0,0"
-                            HorizontalAlignment="Center"
+                <!--#endregion-->
+                
+                <!--#region USE EXTERNAL-->
+                <StackPanel Grid.Row="2"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Left"
+                            Margin="0 4">
+                    <CheckBox Width="30"
+                              Height="30"
+                              Margin="0,4,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              VerticalContentAlignment="Center"
+                              Background="{StaticResource SecondaryColorBrush}"
+                              FontSize="18"
+                              Foreground="Orange"
+                              IsChecked="{Binding UseExternal}"
+                              Style="{StaticResource MaterialDesignActionDarkCheckBox}" />
+                    <TextBlock Height="20"
+                               Margin="10,2,0,0"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource Primary500ColorBrush}"
+                               Text="Use External Txt File" />
+                    <TextBox Width="274"
+                             Height="38"
+                             Margin="14,0,2,0"
+                             Padding="8"
+                             HorizontalAlignment="Left"
+                             md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
+                             md:HintAssist.Hint="External Txt File"
+                             Background="{StaticResource PrimaryColorBrush}"
+                             BorderBrush="{StaticResource Primary700ColorBrush}"
+                             FontSize="14"
+                             Foreground="{StaticResource GreenColorBrush}"
+                             IsEnabled="{Binding UseExternal}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding ExternalFilePath}" />
+                    <Button Width="30"
+                            Height="30"
+                            Margin="10,0"
                             VerticalAlignment="Center"
-                            FontSize="10"
-                            FontWeight="ExtraLight"
-                            Foreground="{StaticResource PrimaryColorBrush}"
-                            Text="Match/Replace" />
-                    </Border>
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,4,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Foreground="{StaticResource Primary900ColorBrush}"
-                        Text="Match:" />
-                    <TextBox
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        Height="40"
-                        Margin="0,6,4,0"
-                        Padding="6"
-                        VerticalAlignment="Center"
-                        BorderBrush="{StaticResource Primary700ColorBrush}"
-                        CaretBrush="{StaticResource Primary900ColorBrush}"
-                        FontSize="20"
-                        Foreground="{StaticResource Primary900ColorBrush}"
-                        Style="{StaticResource RoundCornerTextBox}"
-                        Text="{Binding MatchFor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,-6,4,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Foreground="{StaticResource Primary900ColorBrush}"
-                        Text="Replace With:" />
-                    <TextBox
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Height="38"
-                        Margin="0,-6,4,0"
-                        BorderBrush="{StaticResource Primary700ColorBrush}"
-                        CaretBrush="{StaticResource Primary900ColorBrush}"
-                        FontSize="20"
-                        Padding="6"
-                        Foreground="{StaticResource Primary900ColorBrush}"
-                        Style="{StaticResource RoundCornerTextBox}"
-                        Text="{Binding ReplaceWith, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </Grid>
-            </Border>
-            <!--#endregion-->
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Command="{Binding SetExternalCommand}"
+                            Foreground="{StaticResource GreenColorBrush}"
+                            IsEnabled="{Binding UseExternal}"
+                            Style="{StaticResource MaterialDesignFloatingActionButton}">
+                        <md:PackIcon Width="20"
+                                     Height="20"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     Kind="File" />
+                    </Button>
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="18"
+                               Foreground="{StaticResource GreenColorBrush}"
+                               Text="?" />
+                </StackPanel>
+                <!--#endregion-->
 
-            <!--#region EXT-->
-            <Border
-                Grid.Row="1"
-                Grid.Column="0"
-                Width="180"
-                Height="125"
-                Margin="6,0,0,10"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                BorderBrush="{StaticResource Primary600ColorBrush}"
-                BorderThickness=".5"
-                CornerRadius="2 0 0 2">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition Width="50" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="10" />
-                    </Grid.ColumnDefinitions>
+            </Grid>
+            <!--#endregion-->
+            
+            <!--#region OPTIONS MATCH, CONVERT, USE NUMBERING-->
+            <Grid Grid.Row="2"
+                  Margin="0 10 6 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="14" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                
+                <!--#region SEPERATOR-->
+                <Rectangle Grid.ColumnSpan="4"
+                           Grid.Row="0"
+                           Fill="White"
+                           Height=".5"
+                           Width="960"
+                           HorizontalAlignment="Left"
+                           Opacity=".6"
+                           Margin="0 0 0 2"/>
+                <!--#endregion-->
+                
+                <!--#region MATCH/REPLACE -->
+                <Grid Grid.Column="0"
+                      Grid.Row="1"
+                      Margin="10">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="10" />
-                        <RowDefinition Height="55" />
-                        <RowDefinition Height="55" />
+                        <RowDefinition Height="24" />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="4"
-                        Margin="0,-2,0,0"
-                        Background="{StaticResource GreenColorBrush}"
-                        CornerRadius="2 2 0 0">
-                        <TextBlock
-                            Margin="0,-1,0,0"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontSize="10"
-                            FontWeight="ExtraLight"
-                            Foreground="{StaticResource PrimaryColorBrush}"
-                            Text="Change Ext" />
+                    <Border Grid.Row="0"
+                            Background="{StaticResource GreenColorBrush}"
+                            CornerRadius="4 4 0 0">
+                        <TextBlock Text="Match/Replace"
+                                   Foreground="{StaticResource PrimaryColorBrush}"
+                                   FontSize="18"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
                     </Border>
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,4,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Foreground="{StaticResource Primary900ColorBrush}"
-                        Text="From:" />
-                    <TextBox
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        Width="100"
-                        Height="38"
-                        Margin="0,4,0,0"
-                        HorizontalAlignment="Left"
-                        BorderBrush="{StaticResource Primary700ColorBrush}"
-                        CaretBrush="{StaticResource Primary900ColorBrush}"
-                        FontSize="20"
-                        Padding="6"
-                        Foreground="{StaticResource Primary900ColorBrush}"
-                        Style="{StaticResource RoundCornerTextBox}"
-                        Text="{Binding OldExt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,0,4,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Foreground="{StaticResource Primary900ColorBrush}"
-                        Text="To:" />
-                    <TextBox
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Width="100"
-                        Height="38"
-                        Margin="0,-6,0,0"
-                        HorizontalAlignment="Left"
-                        BorderBrush="{StaticResource Primary700ColorBrush}"
-                        CaretBrush="{StaticResource Primary900ColorBrush}"
-                        FontSize="20"
-                        Padding="6"
-                        Foreground="{StaticResource Primary900ColorBrush}"
-                        Style="{StaticResource RoundCornerTextBox}"
-                        Text="{Binding NewExt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Border Grid.Row="1"
+                            Background="{StaticResource PrimaryColorBrush}"
+                            BorderBrush="{StaticResource Primary500ColorBrush}"
+                            BorderThickness=".5 0 .5 .5">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="10"
+                                              ShadowDepth="4"
+                                              Direction="270"
+                                              Color="Black"
+                                              Opacity=".4" />
+                        </Border.Effect>
+                        
+                    </Border>
                 </Grid>
-            </Border>
+                <!--#endregion-->
+                
+                <!--#region CHANGE EXT-->
+                <Grid Grid.Column="1"
+                      Grid.Row="1"
+                      Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="24" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0"
+                            Background="{StaticResource GreenColorBrush}"
+                            CornerRadius="4 4 0 0">
+                        <TextBlock Text="Change Ext"
+                                   Foreground="{StaticResource PrimaryColorBrush}"
+                                   FontSize="18"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                    </Border>
+                    <Border Grid.Row="1"
+                            Background="{StaticResource PrimaryColorBrush}"
+                            BorderBrush="{StaticResource Primary500ColorBrush}"
+                            BorderThickness=".5 0 .5 .5">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="10"
+                                              ShadowDepth="4"
+                                              Direction="270"
+                                              Color="Black"
+                                              Opacity=".4" />
+                        </Border.Effect>
+
+                    </Border>
+                </Grid> 
+                <!--#endregion-->
+                
+                <!--#region NUMBERING-->
+                 <Grid Grid.Column="2"
+                       Grid.Row="1"
+                       Margin="10">
+                     <Grid.RowDefinitions>
+                         <RowDefinition Height="24" />
+                         <RowDefinition />
+                     </Grid.RowDefinitions>
+                     <Border Grid.Row="0"
+                             Background="{StaticResource GreenColorBrush}"
+                             CornerRadius="4 4 0 0">
+                         <TextBlock Text="Numbering"
+                                    Foreground="{StaticResource PrimaryColorBrush}"
+                                    FontSize="18"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center" />
+                     </Border>
+                     <Border Grid.Row="1"
+                             Background="{StaticResource PrimaryColorBrush}"
+                             BorderBrush="{StaticResource Primary500ColorBrush}"
+                             BorderThickness=".5 0 .5 .5">
+                         <Border.Effect>
+                             <DropShadowEffect BlurRadius="10"
+                                               ShadowDepth="4"
+                                               Direction="270"
+                                               Color="Black"
+                                               Opacity=".4" />
+                         </Border.Effect>
+
+                     </Border>
+                 </Grid> 
+                <!--#endregion-->
+                
+            </Grid>
             <!--#endregion-->
-
-            <!--#region  FILE LIST-->
-            <ListView
-                Grid.Row="2"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                ItemsSource="{Binding Files}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding fileName}" Header="FileName" />
-                        <GridViewColumn DisplayMemberBinding="{Binding newFileName}" Header="New FileName" />
-                        <GridViewColumn DisplayMemberBinding="{Binding sourceDest}" Header="Source Dir" />
-                        <GridViewColumn DisplayMemberBinding="{Binding destination}" Header="Destination" />
-                    </GridView>
-                </ListView.View>
-
-            </ListView>
-
-            <!--#endregion-->
+            
         </Grid>
+
     </Grid>
-
-
+    <!--#endregion-->
 
 </UserControl>

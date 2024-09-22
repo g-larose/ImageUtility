@@ -148,9 +148,8 @@ namespace Image_Utility.ViewModels
 
             for (int i = 0; i < files.Length; i++)
             {
-                 await renamerService.RenameFileAsync(files[i], DestinationDir, options);
-                 ProgressValue = ((double)i * 100 / fileCount);
-                 var test = "";
+                await renamerService.RenameFileAsync(files[i], DestinationDir, options);
+                ProgressValue = ((double)i * 100 / fileCount);
             }
 
             SourceDir = "";

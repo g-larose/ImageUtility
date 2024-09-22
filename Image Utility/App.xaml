@@ -12,7 +12,8 @@
                     BaseTheme="Light"
                     PrimaryColor="BlueGrey"
                     SecondaryColor="Lime" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
                 <ResourceDictionary Source="/Theme/Colors/Default_Colors.xaml" />
                 <ResourceDictionary Source="/Styles/TextboxStyle.xaml" />
                 <ResourceDictionary Source="/Styles/ButtonStyles.xaml" />

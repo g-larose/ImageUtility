@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     Width="800"
-    Height="250"
+    Height="800"
     mc:Ignorable="d">
 
     <UserControl.Triggers>
@@ -21,6 +21,7 @@
                         To="0"
                         Duration="0:0:0.2" />
                     <DoubleAnimation
+                        Storyboard.TargetName="AnimateGrid"
                         Storyboard.TargetProperty="Opacity"
                         From="0"
                         To="1"
@@ -30,12 +31,16 @@
         </EventTrigger>
     </UserControl.Triggers>
 
-    <Grid Name="AnimateGrid" Background="{StaticResource PrimaryColorBrush}">
+    <Grid Name="AnimateGrid" Background="Transparent">
 
         <Grid.RenderTransform>
             <TranslateTransform />
         </Grid.RenderTransform>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
@@ -44,10 +49,14 @@
         </Grid.RowDefinitions>
         <TextBlock
             Grid.Row="0"
+            Grid.Column="1"
             FontSize="28"
             Foreground="{StaticResource Primary200ColorBrush}"
             Text="Image Downloader" />
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            Orientation="Horizontal">
             <TextBox
                 Width="400"
                 Height="40"
@@ -55,7 +64,10 @@
                 md:HintAssist.Hint="Source URL"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
         </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="1"
+            Orientation="Horizontal">
             <TextBox
                 Width="400"
                 Height="40"

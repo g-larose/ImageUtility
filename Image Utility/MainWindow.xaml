@@ -18,7 +18,7 @@
         <converter:BoolToColorConverter x:Key="boolToColorConverter" />
     </Window.Resources>
     
-    <Grid Background="{StaticResource PrimaryToSecondaryGradientBrush}">
+    <Grid Background="{StaticResource PrimaryColorBrush}">
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
@@ -38,7 +38,7 @@
                 Grid.Row="0"
                 Grid.RowSpan="3"
                 Grid.ColumnSpan="2"
-                Background="{StaticResource SecondaryColorBrush}"
+                Background="{StaticResource Primary200ColorBrush}"
                 CornerRadius="0 10 10 0">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="10"
