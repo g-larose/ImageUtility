@@ -6,6 +6,7 @@ using Image_Utility.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -123,6 +124,13 @@ namespace Image_Utility.ViewModels
             get => _isProgressVisible;
             set => OnPropertyChanged(ref _isProgressVisible, value);
         }
+
+        private bool _openAfterExecution;
+        public bool OpenAfterExecution
+        {
+            get => _openAfterExecution;
+            set => OnPropertyChanged(ref _openAfterExecution, value);
+        }
         #endregion
 
         public RenamerViewModel(INavigator? navigator)
@@ -152,12 +160,18 @@ namespace Image_Utility.ViewModels
                 ProgressValue = ((double)i * 100 / fileCount);
             }
 
+            if (OpenAfterExecution)
+                Process.Start("explorer.exe", DestinationDir);
+
+            OpenAfterExecution = false;
+
             SourceDir = "";
             DestinationDir = "";
             MatchFor = "";
             ReplaceWith = "";
             OldExt = "";
             NewExt = "";
+            ProgressValue = 0;
 
         }
 

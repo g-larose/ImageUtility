@@ -187,12 +187,9 @@
                                Opacity=".2"
                                Margin="20 0 0 10"/>
                 </StackPanel>
-                <Rectangle Fill="White"
-                           Height=".5"
-                           Width="800"
+                <Separator Width="1100" 
                            HorizontalAlignment="Left"
-                           Opacity=".4"
-                           Margin="0 0 0 2"/>
+                           Background="{StaticResource Primary300ColorBrush}"/>
             </StackPanel>
             
             <ContentControl 

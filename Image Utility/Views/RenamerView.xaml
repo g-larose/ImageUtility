@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:components="clr-namespace:Image_Utility.Components"
-    Width="1000"
+    Width="1100"
     Height="700"
     mc:Ignorable="d">
 
@@ -32,7 +32,7 @@
                         Storyboard.TargetProperty="Opacity"
                         From="0"
                         To="1"
-                        Duration="0:0:0.8" />
+                        Duration="0:0:0.5" />
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
@@ -63,9 +63,10 @@
                 <RowDefinition Height="200" />
             </Grid.RowDefinitions>
             
-            <!--#region HEADER-->
+            <!--#region HEADER/START RENAMING COMMAND BUTTON-->
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -81,7 +82,8 @@
                         md:ButtonProgressAssist.IndicatorForeground="{StaticResource SecondaryAccentColorBrush}"
                         Foreground="{StaticResource PrimaryColorBrush}"
                         Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}" 
-                        HorizontalAlignment="Left"
+                        HorizontalAlignment="Right"
+                        Margin="0 0 10 0"
                         Command="{Binding StartRenamingCommand}">
                     <Button.Content>
                         <md:PackIcon Kind="RunFast" 
@@ -95,6 +97,24 @@
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>
+                <StackPanel Grid.Column="3"
+                            Orientation="Horizontal">
+                    <ToggleButton Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
+                                  Background="{StaticResource GreenColorBrush}"
+                                  md:ToggleButtonAssist.SwitchTrackOffBackground="LightPink" 
+                                  md:ToggleButtonAssist.SwitchTrackOnBackground="LightGreen"
+                                  IsChecked="{Binding OpenAfterExecution}"/>
+
+                    <TextBlock Text="Open Directory After Execution"
+                               Foreground="{StaticResource GreenColorBrush}"
+                               FontSize="12"
+                               FontWeight="Bold" 
+                               VerticalAlignment="Center"
+                               Margin="10 0" />
+
+
+                </StackPanel>
+                
             </Grid>
 
                 
@@ -116,20 +136,30 @@
                             HorizontalAlignment="Left"
                             Margin="0 4">
                     <TextBox Name="txtSourceDir"
+                             md:TextFieldAssist.HasClearButton="True"
+                             
+                             md:TextFieldAssist.UnderlineBrush="{StaticResource GreenColorBrush}"
                              Grid.Row="0"
                              Grid.Column="0"
                              Width="500"
                              Height="38"
                              Padding="8"
                              HorizontalAlignment="Left"
-                             md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
-                             md:HintAssist.Hint="Image Source"
                              Background="{StaticResource PrimaryColorBrush}"
                              BorderBrush="{StaticResource Primary700ColorBrush}"
                              FontSize="14"
-                             Foreground="{StaticResource GreenColorBrush}"
+                             Foreground="{StaticResource Primary900ColorBrush}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding SourceDir}" />
+                             Text="{Binding SourceDir}">
+                        <md:HintAssist.Hint>
+                            <StackPanel Margin="-2,0,0,0"
+                                        Orientation="Horizontal">
+                                <md:PackIcon Kind="ImageLocation" 
+                                             Margin="0 2 4 0"/>
+                                <TextBlock Text="Image Source" />
+                            </StackPanel>
+                        </md:HintAssist.Hint>
+                    </TextBox>
                     <Button Grid.Row="0"
                             Width="30"
                             Height="30"
@@ -166,14 +196,23 @@
                              Height="38"
                              Padding="8"
                              HorizontalAlignment="Left"
-                             md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
-                             md:HintAssist.Hint="Save Destination"
+                             md:TextFieldAssist.HasClearButton="True"
+                             md:TextFieldAssist.UnderlineBrush="{StaticResource GreenColorBrush}"
                              Background="{StaticResource PrimaryColorBrush}"
                              BorderBrush="{StaticResource Primary700ColorBrush}"
                              FontSize="14"
-                             Foreground="{StaticResource GreenColorBrush}"
+                             Foreground="{StaticResource Primary900ColorBrush}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding DestinationDir}" />
+                             Text="{Binding DestinationDir}">
+                        <md:HintAssist.Hint>
+                            <StackPanel Margin="-2,0,0,0"
+                                        Orientation="Horizontal">
+                                <md:PackIcon Kind="Folder" 
+                                             Margin="0 2 4 0"/>
+                                <TextBlock Text="Destination" />
+                            </StackPanel>
+                        </md:HintAssist.Hint>
+                    </TextBox>
                  <Button Width="30"
                          Height="30"
                          Margin="10,-3,0,0"
@@ -209,27 +248,38 @@
                               FontSize="18"
                               Foreground="Orange"
                               IsChecked="{Binding UseExternal}"
-                              Style="{StaticResource MaterialDesignActionDarkCheckBox}" />
+                              Style="{StaticResource MaterialDesignActionDarkCheckBox}"
+                              Content="U"/>
                     <TextBlock Height="20"
-                               Margin="10,2,0,0"
+                               Margin="10,2,16,0"
                                FontSize="18"
                                FontWeight="Bold"
                                Foreground="{StaticResource Primary500ColorBrush}"
                                Text="Use External Txt File" />
                     <TextBox Width="274"
-                             Height="38"
-                             Margin="14,0,2,0"
-                             Padding="8"
+                             Margin="0 0 0 10"
                              HorizontalAlignment="Left"
-                             md:HintAssist.Foreground="{StaticResource Primary800ColorBrush}"
-                             md:HintAssist.Hint="External Txt File"
+                             md:TextFieldAssist.HasClearButton="True"
+                             md:TextFieldAssist.UnderlineBrush="{StaticResource GreenColorBrush}"
+                             md:HintAssist.Foreground="{StaticResource GreenColorBrush}"
                              Background="{StaticResource PrimaryColorBrush}"
-                             BorderBrush="{StaticResource Primary700ColorBrush}"
-                             FontSize="14"
-                             Foreground="{StaticResource GreenColorBrush}"
+                             BorderBrush="{StaticResource Primary900ColorBrush}"
+                             FontSize="16"
+                             Padding="10"
+                             Foreground="{StaticResource Primary700ColorBrush}"
                              IsEnabled="{Binding UseExternal}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding ExternalFilePath}" />
+                             Text="{Binding ExternalFilePath}" 
+                             VerticalAlignment="Bottom">
+                        <md:HintAssist.Hint>
+                            <StackPanel Margin="-2,0,0,0"
+                                        Orientation="Horizontal">
+                                <md:PackIcon Kind="File" 
+                                             Margin="0 2 4 0"/>
+                                <TextBlock Text="Use External Txt" />
+                            </StackPanel>
+                        </md:HintAssist.Hint>
+                    </TextBox>
                     <Button Width="30"
                             Height="30"
                             Margin="10,0"
@@ -252,7 +302,7 @@
                         <md:PackIcon Kind="Help"
                                      HorizontalAlignment="Center"
                                      VerticalAlignment="Center"
-                                     Foreground="{StaticResource GreenColorBrush}" />
+                                     Foreground="{StaticResource GreenColorBrush}"/>
 
                     </Button>
                     
@@ -291,7 +341,9 @@
                         <CheckBox Style="{StaticResource MaterialDesignActionDarkCheckBox}" 
                                   Background="{StaticResource SecondaryColorBrush}"
                                   HorizontalAlignment="Left"
-                                  Margin="0 10 0 0"/>
+                                  Margin="0 10 0 0"
+                                  Content="O"
+                                  Foreground="Orange"/>
                         <TextBlock Height="24"
                                    Margin="10,8,0,0"
                                    FontSize="18"
