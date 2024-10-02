@@ -50,10 +50,18 @@
     <SolidColorBrush x:Key="SecondaryAccentColorBrush" Color="{StaticResource SecondaryAccent}" />
 
     <!--  Gradient Brushes  -->
+    
     <!--  PrimaryToSecondary  -->
-    <LinearGradientBrush x:Key="PrimaryToSecondaryGradientBrush" StartPoint="0.5,1" EndPoint="0.5,0">
+    <LinearGradientBrush x:Key="PrimaryToSecondaryGradientBrush" StartPoint="0.5,0" EndPoint="0.5,1">
         <GradientStop Offset="0.0" Color="{StaticResource Secondary}" />
         <GradientStop Offset="1.0" Color="{StaticResource Primary}" />
+    </LinearGradientBrush>
+    <!--  End PrimaryToSecondary  -->
+    
+    <!--  PrimaryToSecondary  -->
+    <LinearGradientBrush x:Key="Primary900ToPrimary700GradientBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Offset="0.0" Color="{StaticResource Primary900}" />
+        <GradientStop Offset="1.0" Color="{StaticResource Primary700}" />
     </LinearGradientBrush>
     <!--  End PrimaryToSecondary  -->
 

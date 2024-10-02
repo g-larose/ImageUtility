@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Image_Utility.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     Width="800"
     Height="800"
     mc:Ignorable="d">
@@ -44,61 +45,60 @@
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
-        <Border
-            Grid.Row="1"
-            Grid.Column="1"
-            Width="210"
-            Height="300"
-            Margin="-30,50,0,0"
-            Panel.ZIndex="0"
-            Background="{StaticResource Primary400ColorBrush}"
-            CornerRadius="12">
-            <Border.RenderTransform>
-                <RotateTransform Angle="-5" />
-            </Border.RenderTransform>
+        <StackPanel Grid.Column="1"
+                   Grid.Row="1"
+                   Orientation="Vertical">
+            <Expander
+                HorizontalAlignment="Stretch"
+                Header="Information"
+                Background="Transparent"
+                BorderBrush="LightYellow"
+                BorderThickness=".5"
+                Foreground="{StaticResource GreenColorBrush}"
+                Margin="0 4">
+                <StackPanel
+                  Margin="24,8,24,16"
+                  Orientation="Vertical"
+                  TextBlock.Foreground="{DynamicResource Primary700ColorBrush}">
+                    <TextBlock Text="Information One:" />
+                    <TextBlock Text="Information Two:" />
 
-        </Border>
-        <Border
-            Grid.Row="1"
-            Grid.Column="1"
-            Width="200"
-            Height="300"
-            Margin="-10,26,0,0"
-            Panel.ZIndex="1"
-            Background="{StaticResource AccentColorBrush}"
-            CornerRadius="12">
-            <Border.RenderTransform>
-                <RotateTransform Angle="-2" />
-            </Border.RenderTransform>
-            <Border.Effect>
-                <DropShadowEffect
-                    BlurRadius="20"
-                    Direction="270"
-                    Opacity=".6"
-                    ShadowDepth="10"
-                    Color="Black" />
-            </Border.Effect>
-        </Border>
-        <Border
-            Grid.Row="1"
-            Grid.Column="1"
-            Width="200"
-            Height="300"
-            Margin="8,14,0,0"
-            Panel.ZIndex="2"
-            Background="{StaticResource AccentToAccent200GradientBrush}"
-            CornerRadius="12">
-            <Border.RenderTransform>
-                <RotateTransform Angle="3" />
-            </Border.RenderTransform>
-            <Border.Effect>
-                <DropShadowEffect
-                    BlurRadius="10"
-                    Direction="270"
-                    Opacity="1"
-                    ShadowDepth="10"
-                    Color="Black" />
-            </Border.Effect>
-        </Border>
+
+                </StackPanel>
+            </Expander>
+            <Expander HorizontalAlignment="Stretch"
+                      Header="Warnings"
+                      Background="Transparent"
+                      BorderBrush="LightSalmon"
+                      BorderThickness=".5"
+                      Foreground="{StaticResource GreenColorBrush}"
+                      Margin="0 4">
+                <StackPanel Margin="24,8,24,16"
+                            Orientation="Vertical"
+                            TextBlock.Foreground="{DynamicResource Primary700ColorBrush}">
+                    <TextBlock Text="Warning One:" />
+                    <TextBlock Text="Warning Two:" />
+                    <TextBlock Text="Warning Three:" />
+
+                </StackPanel>
+            </Expander>
+
+            <Expander HorizontalAlignment="Stretch"
+                      Header="Errors"
+                      Background="Transparent"
+                      BorderBrush="LightPink"
+                      BorderThickness=".5"
+                      Foreground="{StaticResource GreenColorBrush}"
+                      Margin="0 4">
+                <StackPanel Margin="24 8 24 16"
+                            Orientation="Vertical"
+                            TextBlock.Foreground="{DynamicResource Primary700ColorBrush}">
+                    <TextBlock Text="Error One:" />
+                    <TextBlock Text="Error Two:" />
+                </StackPanel>
+            </Expander>
+
+            
+        </StackPanel>
     </Grid>
 </UserControl>

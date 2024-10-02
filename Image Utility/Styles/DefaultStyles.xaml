@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!--#region TITLE STYLE-->
+    <Style x:Key="TitleStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource Primary900ToPrimary700GradientBrush}" />
+    </Style>
+    <!--#endregion-->
+    
+</ResourceDictionary>

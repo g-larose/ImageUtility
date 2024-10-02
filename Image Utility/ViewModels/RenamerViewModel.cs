@@ -147,7 +147,7 @@ namespace Image_Utility.ViewModels
 
         private async Task Rename()
         {
-
+            
             var renamerService = new FileRenamerService();
             var options = new RenamOptions() { MatchFor = MatchFor, ReplaceWith = ReplaceWith, OldExt = OldExt, NewExt = NewExt };
 

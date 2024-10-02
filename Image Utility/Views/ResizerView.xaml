@@ -5,32 +5,169 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Image_Utility.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="800"
-    Height="450"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    Width="1000"
+    Height="700"
     mc:Ignorable="d">
-    <Grid>
+    
+    <!--#region ANIMATION-->
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+                        Storyboard.TargetName="AnimateGrid"
+                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                        From="-300"
+                        To="0"
+                        Duration="0:0:0.2" />
+                    <DoubleAnimation
+                        Storyboard.TargetName="AnimateGrid"
+                        Storyboard.TargetProperty="Opacity"
+                        From="0"
+                        To="1"
+                        Duration="0:0:0.5" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <!--#endregion-->
+    <Grid Name="AnimateGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        <TextBlock
-            Grid.Row="0"
-            Margin="20,0"
-            FontSize="28"
-            Foreground="{StaticResource PrimaryColorBrush}"
-            Text="Image Resizer" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RenderTransform>
+            <TranslateTransform />
+        </Grid.RenderTransform>
+        
+        
+        <!--#region  MAIN WRAPPER-->
+        <Grid Grid.Column="1"
+              Grid.Row="1">
 
-        <CheckBox
-            Grid.Row="1"
-            Height="40"
-            Margin="20,0,10,0"
-            Content="Select For Bulk Resize"
-            FontSize="16"
-            Style="{StaticResource MaterialDesignCheckBox}" />
-
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+            
+            <!--#region TITLE-->
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       FontSize="28"
+                       Style="{StaticResource TitleStyle}"
+                       Text="Resizer Options" 
+                       Margin="0 10"/>
+            <!--#endregion-->
+            
+            <!--#region SOURCE DIR-->
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="0 -20 0 0">
+                <TextBox md:TextFieldAssist.HasClearButton="True"
+                         md:TextFieldAssist.UnderlineBrush="{StaticResource GreenColorBrush}"
+                         Grid.Row="0"
+                         Grid.Column="0"
+                         Width="500"
+                         Height="38"
+                         Padding="8"
+                         HorizontalAlignment="Left"
+                         Background="{StaticResource PrimaryColorBrush}"
+                         BorderBrush="{StaticResource Primary700ColorBrush}"
+                         FontSize="14"
+                         Foreground="{StaticResource Primary900ColorBrush}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         Text="{Binding SourceDir}">
+                    <md:HintAssist.Hint>
+                        <StackPanel Margin="-2,0,0,0"
+                                    Orientation="Horizontal">
+                            <md:PackIcon Kind="ImageLocation" 
+                                         Margin="0 2 4 0"/>
+                            <TextBlock Text="Source Dir" />
+                        </StackPanel>
+                    </md:HintAssist.Hint>
+                </TextBox>
+                <Button Grid.Row="0"
+                        Width="30"
+                        Height="30"
+                        Margin="10,-3,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Command="{Binding OpenSourceFolderCommand}"
+                        Foreground="{StaticResource GreenColorBrush}"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}">
+                    <md:PackIcon Width="20"
+                                 Height="20"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Kind="Folder" />
+                </Button>
+            </StackPanel>
+            <!--#endregion-->
+            
+             <!--#region DESTINATION DIR-->
+             <StackPanel Grid.Row="3"
+                         Orientation="Horizontal"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Margin="0 -20 0 0">
+                 <TextBox md:TextFieldAssist.HasClearButton="True"
+                          md:TextFieldAssist.UnderlineBrush="{StaticResource GreenColorBrush}"
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          Width="500"
+                          Height="38"
+                          Padding="8"
+                          HorizontalAlignment="Left"
+                          Background="{StaticResource PrimaryColorBrush}"
+                          BorderBrush="{StaticResource Primary700ColorBrush}"
+                          FontSize="14"
+                          Foreground="{StaticResource Primary900ColorBrush}"
+                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                          Text="{Binding SourceDir}">
+                     <md:HintAssist.Hint>
+                         <StackPanel Margin="-2,0,0,0"
+                                     Orientation="Horizontal">
+                             <md:PackIcon Kind="ImageLocation" 
+                                          Margin="0 2 4 0"/>
+                             <TextBlock Text="Source Dir" />
+                         </StackPanel>
+                     </md:HintAssist.Hint>
+                 </TextBox>
+                 <Button Grid.Row="0"
+                         Width="30"
+                         Height="30"
+                         Margin="10,-3,0,0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Bottom"
+                         Background="Transparent"
+                         BorderBrush="Transparent"
+                         Command="{Binding OpenSourceFolderCommand}"
+                         Foreground="{StaticResource GreenColorBrush}"
+                         Style="{StaticResource MaterialDesignFloatingActionButton}">
+                     <md:PackIcon Width="20"
+                                  Height="20"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Kind="Folder" />
+                 </Button>
+             </StackPanel>
+             <!--#endregion-->
+            
+        </Grid>
+        <!--#endregion-->
+        
     </Grid>
 </UserControl>

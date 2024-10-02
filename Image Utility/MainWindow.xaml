@@ -82,7 +82,7 @@
                 
                 <RadioButton Width="120"
                         Height="80"
-                        Grid.Row="1"
+                        Grid.Row="2"
                         Command="{Binding NavigateDownloaderCommand}"
                         ToolTip="Downloader"
                         ToolTipService.HasDropShadow="True"
@@ -99,7 +99,7 @@
                 </RadioButton>
                 <RadioButton Width="120"
                         Height="80"
-                        Grid.Row="2"
+                        Grid.Row="1"
                         Command="{Binding NavigateResizerCommand}"
                         ToolTip="Resizer"
                         ToolTipService.HasDropShadow="True"
@@ -228,8 +228,9 @@
                     Margin="4"
                     VerticalAlignment="Center">
             <TextBlock Text="Online"
-                       FontSize="18"
-                       Foreground="{Binding IsOnline, Converter={StaticResource boolToColorConverter}}"
+                       FontSize="22"
+                       Foreground="{Binding IsOnline, Converter={StaticResource boolToColorConverter}, 
+                                    FallbackValue={StaticResource Primary700ColorBrush}}"
                        VerticalAlignment="Top"
                        Margin="20 -14 0 0"/>
 
