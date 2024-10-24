@@ -45,37 +45,40 @@
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="1"
-                   Grid.Row="1"
-                   Orientation="Vertical">
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            Orientation="Vertical">
             <Expander
+                Margin="0,4"
                 HorizontalAlignment="Stretch"
-                Header="Information"
                 Background="Transparent"
                 BorderBrush="LightYellow"
                 BorderThickness=".5"
                 Foreground="{StaticResource GreenColorBrush}"
-                Margin="0 4">
+                Header="Information">
                 <StackPanel
-                  Margin="24,8,24,16"
-                  Orientation="Vertical"
-                  TextBlock.Foreground="{DynamicResource Primary700ColorBrush}">
+                    Margin="24,8,24,16"
+                    Orientation="Vertical"
+                    TextBlock.Foreground="{DynamicResource Primary700ColorBrush}">
                     <TextBlock Text="Information One:" />
                     <TextBlock Text="Information Two:" />
 
 
                 </StackPanel>
             </Expander>
-            <Expander HorizontalAlignment="Stretch"
-                      Header="Warnings"
-                      Background="Transparent"
-                      BorderBrush="LightSalmon"
-                      BorderThickness=".5"
-                      Foreground="{StaticResource GreenColorBrush}"
-                      Margin="0 4">
-                <StackPanel Margin="24,8,24,16"
-                            Orientation="Vertical"
-                            TextBlock.Foreground="{DynamicResource Primary700ColorBrush}">
+            <Expander
+                Margin="0,4"
+                HorizontalAlignment="Stretch"
+                Background="Transparent"
+                BorderBrush="LightSalmon"
+                BorderThickness=".5"
+                Foreground="{StaticResource GreenColorBrush}"
+                Header="Warnings">
+                <StackPanel
+                    Margin="24,8,24,16"
+                    Orientation="Vertical"
+                    TextBlock.Foreground="{DynamicResource Primary700ColorBrush}">
                     <TextBlock Text="Warning One:" />
                     <TextBlock Text="Warning Two:" />
                     <TextBlock Text="Warning Three:" />
@@ -83,22 +86,24 @@
                 </StackPanel>
             </Expander>
 
-            <Expander HorizontalAlignment="Stretch"
-                      Header="Errors"
-                      Background="Transparent"
-                      BorderBrush="LightPink"
-                      BorderThickness=".5"
-                      Foreground="{StaticResource GreenColorBrush}"
-                      Margin="0 4">
-                <StackPanel Margin="24 8 24 16"
-                            Orientation="Vertical"
-                            TextBlock.Foreground="{DynamicResource Primary700ColorBrush}">
+            <Expander
+                Margin="0,4"
+                HorizontalAlignment="Stretch"
+                Background="Transparent"
+                BorderBrush="LightPink"
+                BorderThickness=".5"
+                Foreground="{StaticResource GreenColorBrush}"
+                Header="Errors">
+                <StackPanel
+                    Margin="24,8,24,16"
+                    Orientation="Vertical"
+                    TextBlock.Foreground="{DynamicResource Primary700ColorBrush}">
                     <TextBlock Text="Error One:" />
                     <TextBlock Text="Error Two:" />
                 </StackPanel>
             </Expander>
 
-            
+
         </StackPanel>
     </Grid>
 </UserControl>

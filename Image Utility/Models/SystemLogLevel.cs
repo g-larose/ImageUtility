@@ -9,6 +9,7 @@ namespace Image_Utility.Models
     public enum SystemLogLevel
     {
         INFORMATION,
+        DEBUG,
         WARNING,
         ERROR
     }

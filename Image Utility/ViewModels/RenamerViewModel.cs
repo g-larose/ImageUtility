@@ -27,8 +27,8 @@ namespace Image_Utility.ViewModels
         public ICommand StartRenamingCommand { get; }
 
         #region Auto Properties
-        private ObservableCollection<File> _files;
-        public ObservableCollection<File> Files
+        private ObservableCollection<ImageProperties> _files;
+        public ObservableCollection<ImageProperties> Files
         {
             get => _files;
             set => OnPropertyChanged(ref _files, value);

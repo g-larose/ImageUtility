@@ -4,9 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Image_Utility.Views"
+    xmlns:components="clr-namespace:Image_Utility.Components"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-    Width="1000"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    Width="1100"
     Height="700"
     mc:Ignorable="d">
     
@@ -41,6 +44,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
         <Grid.RenderTransform>
@@ -57,6 +61,8 @@
                 <RowDefinition Height="20" />
                 <RowDefinition Height="60" />
                 <RowDefinition Height="60" />
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
             <!--#region TITLE-->
@@ -117,7 +123,7 @@
             </StackPanel>
             <!--#endregion-->
             
-             <!--#region DESTINATION DIR-->
+            <!--#region DESTINATION DIR-->
              <StackPanel Grid.Row="3"
                          Orientation="Horizontal"
                          HorizontalAlignment="Left"
@@ -166,7 +172,167 @@
              </StackPanel>
              <!--#endregion-->
             
+            <!--#region RESIZE CONTROLS-->
+            <Grid Grid.Column="1"
+                  Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                
+                <!--#region HEIGHT/WIDTH-->
+                <GroupBox Style="{StaticResource MaterialDesignGroupBox}"
+                          Grid.Column="0"
+                          Grid.Row="4"
+                          Height="120"
+                          Width="250"
+                          Margin="0 0 10 0"
+                          Header="Resize Controls"
+                          HorizontalAlignment="Center"
+                          md:ElevationAssist.Elevation="Dp4"
+                          md:GroupBoxAssist.HeaderPadding="0">
+                    <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="0"
+                               Text="Height :"
+                               Foreground="{StaticResource Primary700ColorBrush}"
+                               FontSize="12" 
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               Margin="0 0 14 0"/>
+                    <md:NumericUpDown Grid.Column="1"
+                                      Grid.Row="0"
+                                      Width="140"
+                                      Foreground="{DynamicResource Primary700ColorBrush}"
+                                      HorizontalAlignment="Left"
+                                      Minimum="50"
+                                      Maximum="1200"
+                                      md:TextFieldAssist.UnderlineBrush="{StaticResource Primary700ColorBrush}">
+                        <md:NumericUpDown.IncreaseContent>
+                            <Border
+                                   BorderBrush="{DynamicResource Primary700ColorBrush}"
+                                   BorderThickness="1"
+                                   CornerRadius="20">
+                                <md:PackIcon Foreground="{DynamicResource Primary400ColorBrush}"
+                                             Kind="ArrowUp" />
+                            </Border>
+                        </md:NumericUpDown.IncreaseContent>
+                        <md:NumericUpDown.DecreaseContent>
+                            <Border
+                                   BorderBrush="{DynamicResource Primary700ColorBrush}"
+                                   BorderThickness="1"
+                                   CornerRadius="20"
+                                   Margin="-6">
+                                <md:PackIcon Foreground="{DynamicResource Primary400ColorBrush}"
+                                             Kind="ArrowDown" />
+                            </Border>
+                        </md:NumericUpDown.DecreaseContent>
+                    </md:NumericUpDown>
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="1"
+                               Text="Width :"
+                               Foreground="{StaticResource Primary700ColorBrush}"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               Margin="0 0 15 0" />
+                    <md:NumericUpDown Grid.Column="1"
+                                      Grid.Row="1"
+                                      Width="140"
+                                      Foreground="{DynamicResource Primary700ColorBrush}"
+                                      HorizontalAlignment="Left"
+                                      Minimum="50"
+                                      Maximum="1200">
+                        <md:NumericUpDown.IncreaseContent>
+                            <Border BorderBrush="{DynamicResource Primary700ColorBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="20">
+                                <md:PackIcon Foreground="{DynamicResource Primary400ColorBrush}"
+                                             Kind="ArrowUp" />
+                            </Border>
+                        </md:NumericUpDown.IncreaseContent>
+                        <md:NumericUpDown.DecreaseContent>
+                            <Border BorderBrush="{DynamicResource Primary700ColorBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="20"
+                                    Margin="-6">
+                                <md:PackIcon Foreground="{DynamicResource Primary400ColorBrush}"
+                                             Kind="ArrowDown" />
+                            </Border>
+                        </md:NumericUpDown.DecreaseContent>
+                    </md:NumericUpDown>
+                    
+                    
+                </Grid>
+                </GroupBox>
+                
+                <!--#endregion-->
+                
+                <!--#region PRESET SIZES-->
+
+                <GroupBox Grid.Column="1"
+                          Grid.Row="4"
+                          Height="120"
+                          Width="250"
+                          Header="Presets"
+                          Style="{StaticResource MaterialDesignGroupBox}"
+                          md:ElevationAssist.Elevation="Dp4"
+                          md:GroupBoxAssist.HeaderPadding="0">
+                    <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          md:HintAssist.Background="{StaticResource Primary200ColorBrush}"
+                          md:HintAssist.Foreground="{StaticResource Primary700ColorBrush}"
+                          Foreground="{StaticResource Primary700ColorBrush}"
+                          Background="{StaticResource PrimaryColorBrush}"
+                          ItemsSource="{Binding Preset_Sizes}"
+                          SelectedIndex="0"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Center"
+                          Width="200"
+                          Grid.Column="1"
+                          Grid.Row="4">
+    
+                </ComboBox> 
+                </GroupBox>
+                
+
+                <!--#endregion-->
+                    
+            </Grid>
+            
+            <!--#endregion-->
+              
+
         </Grid>
+        <!--#endregion-->
+        
+        <!--#region RESIZE PREVIEW-->
+        <ScrollViewer Grid.Column="2"
+                      Grid.Row="1"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Previews}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <components:SingleImagePropertiesComponent />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+    
+        </ScrollViewer>
         <!--#endregion-->
         
     </Grid>

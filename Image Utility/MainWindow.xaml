@@ -12,7 +12,9 @@
         WindowStartupLocation="CenterScreen"
         Title="Image Utility PRO" 
         Height="900" 
-        Width="1400">
+        Width="1400"
+        BorderBrush="{StaticResource GreenColorBrush}"
+        BorderThickness=".75">
 
     <Window.Resources>
         <converter:BoolToColorConverter x:Key="boolToColorConverter" />

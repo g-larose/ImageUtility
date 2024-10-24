@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="Image_Utility.Components.SingleImagePropertiesComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Image_Utility.Components"
+             mc:Ignorable="d" 
+             Height="240" Width="180">
+    <Border CornerRadius="12"
+            Background="{StaticResource CardSecondaryToPrimaryGradientBrush}">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="2"
+                              ShadowDepth="1"
+                              Direction="-90"
+                              Color="Black"
+                              Opacity=".5" />
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+            <RowDefinition Height="130" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0"
+                CornerRadius="10"
+                Background="{StaticResource CardSecondaryColorBrush}">
+            <Image Height="128"
+                   Width="128"
+                   Source="{Binding ImageUrl}">
+    
+            </Image>
+        </Border>
+        
+        <StackPanel Grid.Row="1"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+            <TextBlock Text="{Binding FileName, StringFormat='File Name: {0}', FallbackValue=File Name:}"
+                       Foreground="{StaticResource Primary700ColorBrush}"
+                       FontSize="12" 
+                       Margin="4 4"/>
+            <TextBlock Text="{Binding FileSize, StringFormat='File Size: {0}', FallbackValue=File Size:}"
+                       Foreground="{StaticResource Primary700ColorBrush}"
+                       FontSize="12" 
+                       Margin="4 4"/>
+            <TextBlock Text="{Binding LastUpdated, StringFormat='Last Updated: {0}', FallbackValue=Last Updated:}"
+                       Foreground="{StaticResource Primary700ColorBrush}"
+                       FontSize="12" 
+                       Margin="4 4"/>
+            <StackPanel Orientation="Horizontal"
+                        Width="140">
+                <TextBlock Text="{Binding Height, StringFormat='Height: {0}', FallbackValue=Height:}"
+                           Foreground="{StaticResource Primary700ColorBrush}"
+                           FontSize="12"
+                           Margin="0 4 10 4" />
+                <TextBlock Text="{Binding Width, StringFormat='Width: {0}', FallbackValue=Width:}"
+                           Foreground="{StaticResource Primary700ColorBrush}"
+                           FontSize="12"
+                           Margin="20 4 10 4" />
+            </StackPanel>
+        </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

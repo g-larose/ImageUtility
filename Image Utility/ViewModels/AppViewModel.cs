@@ -1,12 +1,11 @@
 ﻿using Image_Utility.Commands;
 using Image_Utility.Interfaces;
+using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using ILogger = Image_Utility.Interfaces.ILogger;
 
 namespace Image_Utility.ViewModels
 {
@@ -17,6 +16,7 @@ namespace Image_Utility.ViewModels
     public class AppViewModel : ViewModelBase
     {
         private readonly INavigator? _navigator;
+        private readonly ILogger _logger;
         public ViewModelBase? SelectedViewModel => _navigator!.CurrentViewModel;
         public ICommand NavigateDownloaderCommand { get; }
         public ICommand NavigateResizerCommand { get; }
@@ -31,16 +31,19 @@ namespace Image_Utility.ViewModels
             set => OnPropertyChanged(ref _isOnline, value);
         }
 
-        public AppViewModel(INavigator? navigator)
+        public AppViewModel(INavigator? navigator, ILogger logger)
         {
             _navigator = navigator;
+            _logger = logger;
             _navigator!.CurrentViewModelChanged += OnSelectedViewModelChanged;
             NavigateDownloaderCommand = new NavigateCommand<DownloaderViewModel>(_navigator, () => new DownloaderViewModel(_navigator));
             NavigateResizerCommand = new NavigateCommand<ResizerViewModel>(_navigator, () => new ResizerViewModel(_navigator));
             NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(_navigator, () => new SettingsViewModel(_navigator));
             NavigateCompresserCommand = new NavigateCommand<CompresserViewModel>(_navigator, () => new CompresserViewModel(_navigator));
             NavigateRenamerCommand = new NavigateCommand<RenamerViewModel>(_navigator, () => new RenamerViewModel(_navigator));
-            IsConnectedToInternet();
+
+            IsOnline = NetworkInterface.GetIsNetworkAvailable();
+            Log.Information("Image Utility Started");
         }
 
         private void OnSelectedViewModelChanged()
