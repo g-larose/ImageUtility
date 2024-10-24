@@ -213,7 +213,7 @@ namespace Image_Utility.ViewModels
 
             var ofd = new FolderBrowserDialog();
             ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
+            
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 SourceDir = ofd.SelectedPath;

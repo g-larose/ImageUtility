@@ -6,10 +6,9 @@ namespace Image_Utility.ViewModels
     {
         public string? FileName { get; set; }
         public string? ImageUrl { get; set; }
-        public int FileSize { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public DateTime? LastUpdated { get; set; }
+        public string? FileSize { get; set; }
+        public string? Size { get; set; }
+        public string? LastUpdated { get; set; }
 
     }
 }

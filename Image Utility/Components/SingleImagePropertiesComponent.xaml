@@ -1,63 +1,87 @@
-﻿<UserControl x:Class="Image_Utility.Components.SingleImagePropertiesComponent"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Image_Utility.Components"
-             mc:Ignorable="d" 
-             Height="240" Width="180">
-    <Border CornerRadius="12"
-            Background="{StaticResource CardSecondaryToPrimaryGradientBrush}">
+﻿<UserControl
+    x:Class="Image_Utility.Components.SingleImagePropertiesComponent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Image_Utility.Components"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="180"
+    Height="180"
+    mc:Ignorable="d">
+    <Border
+        Margin="4"
+        Background="{StaticResource CardSecondaryToPrimaryGradientBrush}"
+        CornerRadius="12">
         <Border.Effect>
-            <DropShadowEffect BlurRadius="2"
-                              ShadowDepth="1"
-                              Direction="-90"
-                              Color="Black"
-                              Opacity=".5" />
+            <DropShadowEffect
+                BlurRadius="2"
+                Direction="-90"
+                Opacity=".5"
+                ShadowDepth="1"
+                Color="Black" />
         </Border.Effect>
         <Grid>
             <Grid.RowDefinitions>
-            <RowDefinition Height="130" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Border Grid.Row="0"
-                CornerRadius="10"
-                Background="{StaticResource CardSecondaryColorBrush}">
-            <Image Height="128"
-                   Width="128"
-                   Source="{Binding ImageUrl}">
-    
-            </Image>
-        </Border>
-        
-        <StackPanel Grid.Row="1"
-                    Orientation="Vertical"
+                <RowDefinition Height="70" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Image
+                    Width="64"
+                    Height="64"
+                    Margin="4,0"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
-            <TextBlock Text="{Binding FileName, StringFormat='File Name: {0}', FallbackValue=File Name:}"
-                       Foreground="{StaticResource Primary700ColorBrush}"
-                       FontSize="12" 
-                       Margin="4 4"/>
-            <TextBlock Text="{Binding FileSize, StringFormat='File Size: {0}', FallbackValue=File Size:}"
-                       Foreground="{StaticResource Primary700ColorBrush}"
-                       FontSize="12" 
-                       Margin="4 4"/>
-            <TextBlock Text="{Binding LastUpdated, StringFormat='Last Updated: {0}', FallbackValue=Last Updated:}"
-                       Foreground="{StaticResource Primary700ColorBrush}"
-                       FontSize="12" 
-                       Margin="4 4"/>
-            <StackPanel Orientation="Horizontal"
-                        Width="140">
-                <TextBlock Text="{Binding Height, StringFormat='Height: {0}', FallbackValue=Height:}"
-                           Foreground="{StaticResource Primary700ColorBrush}"
-                           FontSize="12"
-                           Margin="0 4 10 4" />
-                <TextBlock Text="{Binding Width, StringFormat='Width: {0}', FallbackValue=Width:}"
-                           Foreground="{StaticResource Primary700ColorBrush}"
-                           FontSize="12"
-                           Margin="20 4 10 4" />
+                    Source="{Binding ImageUrl}"
+                    Stretch="Fill">
+                    <Image.Effect>
+                        <DropShadowEffect
+                            BlurRadius="2"
+                            Direction="-90"
+                            Opacity=".4"
+                            ShadowDepth="2"
+                            Color="Black" />
+                    </Image.Effect>
+                </Image>
+            </Grid>
+
+
+            <StackPanel
+                Grid.Row="1"
+                Width="160"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Orientation="Vertical">
+                <TextBlock
+                    Height="18"
+                    Margin="4 0"
+                    FontSize="12"
+                    Foreground="{StaticResource Primary700ColorBrush}"
+                    Text="{Binding Path=FileName, StringFormat='File Name: {0}', FallbackValue=File Name:}" />
+                <TextBlock
+                    Height="18"
+                    Margin="4 0"
+                    FontSize="12"
+                    Foreground="{StaticResource Primary700ColorBrush}"
+                    Text="{Binding Path=FileSize, StringFormat='File Size: {0}', FallbackValue=File Size:}" />
+                <TextBlock
+                    Height="18"
+                    Margin="4 0"
+                    FontSize="12"
+                    Foreground="{StaticResource Primary700ColorBrush}"
+                    Text="{Binding Path=LastUpdated, StringFormat='Updated: {0}', FallbackValue=Updated:}" />
+                <StackPanel
+                    Width="Auto"
+                    Height="28"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="4,0,10 0"
+                        FontSize="14"
+                        Foreground="{StaticResource Primary700ColorBrush}"
+                        Text="{Binding Path=Size, StringFormat='Size: {0}', FallbackValue=Size:}" />
+        
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
         </Grid>
     </Border>
 </UserControl>
