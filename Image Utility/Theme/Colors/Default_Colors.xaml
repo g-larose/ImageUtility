@@ -30,7 +30,7 @@
     <Color x:Key="SecondaryAccent400">#9b7f00</Color>
     <Color x:Key="SecondaryAccent500">#8c7200</Color>
     <Color x:Key="Green">#3ca8a9</Color>
-
+    <Color x:Key="LightGrey">#A0A0A0</Color>
     <Color x:Key="Grey">#9C9CA6</Color>
 
     <!--  Color Brushes  -->
@@ -96,6 +96,13 @@
     <LinearGradientBrush x:Key="CardSecondaryToPrimaryGradientBrush" StartPoint="0,0.5" EndPoint="0.5,1">
         <GradientStop Offset="0.0" Color="{StaticResource CardSecondary}" />
         <GradientStop Offset="1.0" Color="{StaticResource CardPrimary}" />
+    </LinearGradientBrush>
+    <!--  End CardSecondaryToPrimaryGradientBrush  -->
+
+    <!--  CardWhiteToGreenGradientBrush  -->
+    <LinearGradientBrush x:Key="CardPrimaryToGreenGradientBrush" StartPoint="0.5,0.5" EndPoint="0.5,1">
+        <GradientStop Offset="0.0" Color="{StaticResource Primary}" />
+        <GradientStop Offset="1.0" Color="{StaticResource Green}" />
     </LinearGradientBrush>
     <!--  End CardSecondaryToPrimaryGradientBrush  -->
 

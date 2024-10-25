@@ -17,6 +17,7 @@ namespace Image_Utility.ViewModels
     public class ResizerViewModel: ViewModelBase
     {
         private readonly INavigator? _navigator;
+        private readonly ILogger _logger;
         public ViewModelBase? SelectedViewModel => _navigator!.CurrentViewModel;
 
         public ICommand SetSourceDirCommand { get; }
@@ -52,13 +53,21 @@ namespace Image_Utility.ViewModels
             set => OnPropertyChanged(ref _destinationDir, value);
         }
 
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set => OnPropertyChanged(ref _errorMessage, value);
+        }
+
         #endregion
 
-        public ResizerViewModel(INavigator? navigator)
+        public ResizerViewModel(INavigator? navigator, ILogger logger)
         {
             _navigator = navigator;
+            _logger = logger;
             _navigator!.CurrentViewModelChanged += OnSelectedViewModelChanged;
-            SetSourceDirCommand = new RelayCommand(SetSourceDir);
+            SetSourceDirCommand = new AsyncRelayCommand(SetSourceDir, null);
             SetDestinationDirCommand = new RelayCommand(SetDestinationDir);
 
             LoadPresets();
@@ -68,7 +77,7 @@ namespace Image_Utility.ViewModels
 
         #region PRIVATE METHODS
 
-        private void SetSourceDir()
+        private async Task SetSourceDir()
         {
             var ofd = new FolderBrowserDialog();
             ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -76,7 +85,7 @@ namespace Image_Utility.ViewModels
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 SourceDir = ofd.SelectedPath;
-                LoadPreview();
+                await LoadPreview();
             }
         }
 
@@ -91,26 +100,46 @@ namespace Image_Utility.ViewModels
             }
         }
 
-        private void LoadPreview()
+        private async Task LoadPreview()
         {
             var files = Directory.GetFiles(SourceDir);
             Previews = new();
-            for (int i = 0; i < files.Length; i++)
+
+            await Task.Run(async () =>
             {
-                var file = new FileInfo(files[i]);
-                var fileSize = file.Length;
-                var fSize = FileSizeFormatter.FormatSize(fileSize);
-                var img = Image.FromFile(file.FullName);
-                Previews.Add(
-                new ImageProperties()
+
+                for (int i = 0; i < files.Length; i++)
                 {
-                    FileName = new FileInfo(files[i]).Name,
-                    ImageUrl = files[i],
-                    FileSize = fSize,
-                    Size = $"{img.Height}x{img.Width}",
-                    LastUpdated = file.LastWriteTime.ToShortDateString(),
-                });
-            }
+                    try
+                    {
+                        var file = new FileInfo(files[i]);
+                        var fileSize = file.Length;
+                        var fSize = FileSizeFormatter.FormatSize(fileSize);
+                        var img = Image.FromFile(file.FullName);
+
+                        App.Current.Dispatcher.Invoke((Action)delegate ()
+                        {
+                            Previews.Add(
+                            new ImageProperties()
+                            {
+                                FileName = new FileInfo(file.Name).Name,
+                                ImageUrl = file.FullName,
+                                FileSize = fSize,
+                                Size = $"{img.Height}x{img.Width}",
+                                LastUpdated = file.LastWriteTime.ToShortDateString(),
+                            });
+                        });
+                            
+                        }
+                    catch (Exception ex)
+                    {
+                        ErrorMessage = ex.Message;
+                        _logger.Log(DateTime.Now, ErrorMessage);
+                    }
+                    
+                }
+            });
+            //return;
         }
 
         private void LoadPresets()

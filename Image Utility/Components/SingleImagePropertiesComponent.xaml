@@ -8,10 +8,11 @@
     Width="180"
     Height="180"
     mc:Ignorable="d">
-    <Border
-        Margin="4"
-        Background="{StaticResource CardSecondaryToPrimaryGradientBrush}"
-        CornerRadius="12">
+    <Border BorderBrush="{StaticResource CardPrimaryToGreenGradientBrush}"
+            BorderThickness="1 0 1 1"
+            Margin="4"
+            Background="{StaticResource CardSecondaryToPrimaryGradientBrush}"
+            CornerRadius="12">
         <Border.Effect>
             <DropShadowEffect
                 BlurRadius="2"
