@@ -5,6 +5,9 @@ namespace Image_Utility.Interfaces
 {
     public interface ILogger
     {
-        void Log(DateTime timeStamp,string message);
+        void LogInfo(DateTime timeStamp,string message);
+        void LogError(DateTime timeStamp,string message);
+        void LogWarning(DateTime timeStamp,string message);
+        void LogDebug(DateTime timeStamp,string message);
     }
 }

@@ -9,7 +9,6 @@ namespace Image_Utility.Utilities
     public static class FileSizeFormatter
     {
         static readonly string[] suffixes = { "Bytes", "KB", "MB", "GB", "TB", "PB" };
-
         public static string FormatSize(Int64 bytes)
         {
             int counter = 0;

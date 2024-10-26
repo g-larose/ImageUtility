@@ -40,14 +40,13 @@
                 Grid.Row="0"
                 Grid.RowSpan="3"
                 Grid.ColumnSpan="2"
-                Background="{StaticResource Primary200ColorBrush}"
-                CornerRadius="0 10 10 0">
+                Background="{StaticResource Primary200ColorBrush}">
             <Border.Effect>
-                <DropShadowEffect BlurRadius="10"
-                                  ShadowDepth="4"
+                <DropShadowEffect BlurRadius="2"
+                                  ShadowDepth="2"
                                   Direction="0"
                                   Color="Black"
-                                  Opacity=".4" />
+                                  Opacity=".2" />
             </Border.Effect>
             <Grid>
                 <Grid.RowDefinitions>
@@ -73,7 +72,8 @@
                              ToolTipService.HorizontalOffset="6"
                              HorizontalAlignment="Center"
                              Padding="0"
-                             Style="{StaticResource HoverStyle}">
+                             Style="{StaticResource HoverStyle}"
+                             IsEnabled="{Binding CanExecute}">
                     <fa:IconImage Icon="ArrowUpAZ"
                                   Foreground="DarkGray"
                                   Height="50"
@@ -92,7 +92,8 @@
                         ToolTipService.ShowDuration="2000"
                         ToolTipService.VerticalOffset="24"
                         ToolTipService.HorizontalOffset="6"
-                        Style="{StaticResource HoverStyle}">
+                        Style="{StaticResource HoverStyle}"
+                        IsEnabled="{Binding CanExecute}">
                     <fa:IconImage Icon="FileImage"
                                   Foreground="DarkGray"
                                   Height="50"
@@ -109,7 +110,8 @@
                         ToolTipService.ShowDuration="2000"
                         ToolTipService.VerticalOffset="24"
                         ToolTipService.HorizontalOffset="6"
-                        Style="{StaticResource HoverStyle}">
+                        Style="{StaticResource HoverStyle}"
+                        IsEnabled="{Binding CanExecute}">
                     <fa:IconImage Icon="TextHeight"
                                   Foreground="DarkGray"
                                   Height="50"
@@ -126,7 +128,8 @@
                         ToolTipService.ShowDuration="2000"
                         ToolTipService.VerticalOffset="24"
                         ToolTipService.HorizontalOffset="6"
-                        Style="{StaticResource HoverStyle}">
+                        Style="{StaticResource HoverStyle}"
+                        IsEnabled="{Binding CanExecute}">
                     <fa:IconImage Icon="FileZipper"
                                   Foreground="DarkGray"
                                   Height="50"
@@ -143,7 +146,8 @@
                         ToolTipService.ShowDuration="2000"
                         ToolTipService.VerticalOffset="24"
                         ToolTipService.HorizontalOffset="6"
-                        Style="{StaticResource HoverStyle}">
+                        Style="{StaticResource HoverStyle}"
+                        IsEnabled="{Binding CanExecute}">
                     <fa:IconImage Icon="Gear"
                                   Foreground="DarkGray"
                                   Height="50"
@@ -184,10 +188,18 @@
                     </Border>
                     <TextBlock Text="Image Utility Pro"
                                FontSize="92"
-                               Foreground="{StaticResource Primary900ColorBrush}" 
+                               Foreground="{StaticResource LightRedToLightOrangeGradientBrush}" 
                                VerticalAlignment="Center"
-                               Opacity=".2"
-                               Margin="20 0 0 10"/>
+                               Opacity=".7"
+                               Margin="20 0 0 10">
+                        <TextBlock.Effect>
+                            <DropShadowEffect BlurRadius="14"
+                                              ShadowDepth="4"
+                                              Direction="270"
+                                              Color="Black"
+                                              Opacity="1" />
+                        </TextBlock.Effect>
+                    </TextBlock>
                 </StackPanel>
                 <Separator Width="1100" 
                            HorizontalAlignment="Left"

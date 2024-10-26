@@ -8,7 +8,17 @@ namespace Image_Utility.Services
 {
     public class LoggerService : ILogger
     {
-        public void Log(DateTime timeStamp, string message)
+        public void LogDebug(DateTime timeStamp, string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LogError(DateTime timeStamp, string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LogInfo(DateTime timeStamp, string message)
         {
             var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Logs", "log.txt");
             var jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Logs", "logs.json");
@@ -18,7 +28,7 @@ namespace Image_Utility.Services
 
             using (StreamWriter writer = new StreamWriter(path, true))
             {
-                writer.WriteLine($"[{timeStamp:g}]: {message}");
+                writer.WriteLine($"[{timeStamp:g}]: [INFO] {message}");
             }
             var options = new JsonSerializerOptions()
             {
@@ -36,6 +46,11 @@ namespace Image_Utility.Services
                 });
 
             File.AppendAllText(jsonPath, json);
+        }
+
+        public void LogWarning(DateTime timeStamp, string message)
+        {
+            throw new NotImplementedException();
         }
     }
 }

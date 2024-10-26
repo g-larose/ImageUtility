@@ -31,17 +31,24 @@ namespace Image_Utility.ViewModels
             set => OnPropertyChanged(ref _isOnline, value);
         }
 
+        private bool _canExecute;
+        public bool CanExecute
+        {
+            get => _canExecute;
+            set => OnPropertyChanged(ref _canExecute, value);
+        }
+
         public AppViewModel(INavigator? navigator, ILogger logger)
         {
             _navigator = navigator;
             _logger = logger;
             _navigator!.CurrentViewModelChanged += OnSelectedViewModelChanged;
             NavigateDownloaderCommand = new NavigateCommand<DownloaderViewModel>(_navigator, () => new DownloaderViewModel(_navigator));
-            NavigateResizerCommand = new NavigateCommand<ResizerViewModel>(_navigator, () => new ResizerViewModel(_navigator, _logger));
+            NavigateResizerCommand = new NavigateCommand<ResizerViewModel>(_navigator, () => new ResizerViewModel(_navigator, _logger, this));
             NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(_navigator, () => new SettingsViewModel(_navigator));
             NavigateCompresserCommand = new NavigateCommand<CompresserViewModel>(_navigator, () => new CompresserViewModel(_navigator));
             NavigateRenamerCommand = new NavigateCommand<RenamerViewModel>(_navigator, () => new RenamerViewModel(_navigator));
-
+            CanExecute = true;
             IsOnline = NetworkInterface.GetIsNetworkAvailable();
             Log.Information("Image Utility Started");
         }
