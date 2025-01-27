@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Image_Utility.Models
+namespace Image_Utility.Enums
 {
-    public enum SystemLogLevel
+    public enum TargetType
     {
-        INFORMATION,
-        DEBUG,
-        WARNING,
-        ERROR
+        Console,
+        Debug,
+        File
     }
 }

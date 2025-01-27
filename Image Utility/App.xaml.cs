@@ -8,7 +8,9 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
+using Image_Utility.Enums;
 using ILogger = Image_Utility.Interfaces.ILogger;
 
 namespace Image_Utility
@@ -30,27 +32,34 @@ namespace Image_Utility
                 services.AddSingleton<AppViewModel>();
                 services.AddSingleton<INavigator, Navigator>();
                 services.AddSingleton<ILogger, LoggerService>();
+                services.AddSingleton<IResizer, ResizerService>();
                 services.AddSingleton<MainWindow>(s => new MainWindow()
                 {
                     DataContext = s.GetRequiredService<AppViewModel>()
                 });
                 
             }).Build();
-
-            Log.Logger = new LoggerConfiguration()
-                 .MinimumLevel.Debug()
-                 .WriteTo.Debug(outputTemplate: "[{Timestamp:yyy-MM-dd HH:mm:ss.fff} {Level:u3}] {Message:lj}{Newline}{Exception}")
-                 .WriteTo.File(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Logs", "log.txt"))
-                 .CreateLogger();
+            
         }
 
-        protected override void OnExit(ExitEventArgs e)
+        protected override async void OnExit(ExitEventArgs e)
         {
-            base.OnExit(e);
+            try
+            {
+                await _host.StopAsync();
+                base.OnExit(e);
+            }
+            catch (Exception exception)
+            {
+                ILogger logger = new LoggerService();
+                logger.Log(DateTime.UtcNow, exception.Message, LogType.Error, TargetType.File);
+            }
+            
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            _host.Start();
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             
             MainWindow.Show();

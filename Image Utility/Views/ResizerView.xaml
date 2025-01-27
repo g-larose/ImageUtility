@@ -88,7 +88,8 @@
                         md:ButtonProgressAssist.Value="{Binding ProgressValue}"
                         HorizontalAlignment="Right"
                         Margin="0 0 10 0"
-                        Command="{Binding DoResizeCommand}">
+                        Command="{Binding DoResizeCommand}"
+                        AutomationProperties.HelpText="Start Resize Command">
                     <Button.Content>
                         <md:PackIcon Width="30"
                                      Height="30"
@@ -108,35 +109,35 @@
             
             <!--#region SOURCE DIR-->
             <StackPanel Grid.Row="2"
+                        Height="50"
                         Orientation="Horizontal"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Margin="0 -20 0 0">
-                <TextBox md:TextFieldAssist.HasClearButton="True"
+                <TextBox Name="txtSourceDir"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         md:TextFieldAssist.HasClearButton="True"
                          md:TextFieldAssist.UnderlineBrush="{StaticResource GreenColorBrush}"
-                         Grid.Row="0"
-                         Grid.Column="0"
                          Width="500"
                          Height="38"
-                         Padding="8"
+                         Padding="4"
                          HorizontalAlignment="Left"
                          Background="{StaticResource PrimaryColorBrush}"
                          BorderBrush="{StaticResource Primary700ColorBrush}"
                          FontSize="14"
                          Foreground="{StaticResource Primary900ColorBrush}"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Text="{Binding SourceDir}">
+                         Text="{Binding SourceDir, UpdateSourceTrigger=PropertyChanged}">
                     <md:HintAssist.Hint>
                         <StackPanel Margin="-2,0,0,0"
                                     Orientation="Horizontal">
                             <md:PackIcon Kind="ImageLocation" 
                                          Margin="0 2 4 0"/>
-                            <TextBlock Text="Source Dir" />
+                            <TextBlock Text="Source Directory"
+                                       Foreground="{StaticResource AccentColorBrush}"/>
                         </StackPanel>
                     </md:HintAssist.Hint>
                 </TextBox>
-                <Button Grid.Row="0"
-                        Width="30"
+                <Button Width="30"
                         Height="30"
                         Margin="10,-3,0,0"
                         HorizontalAlignment="Left"
@@ -146,6 +147,7 @@
                         Command="{Binding SetSourceDirCommand}"
                         Foreground="{StaticResource GreenColorBrush}"
                         Style="{StaticResource MaterialDesignFloatingActionButton}">
+                    
                     <md:PackIcon Width="20"
                                  Height="20"
                                  HorizontalAlignment="Center"
@@ -157,30 +159,31 @@
             
             <!--#region DESTINATION DIR-->
              <StackPanel Grid.Row="3"
+                         Height="50"
                          Orientation="Horizontal"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
                          Margin="0 -20 0 0">
-                 <TextBox md:TextFieldAssist.HasClearButton="True"
+                 <TextBox Name="txtDestDir"
+                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                          md:TextFieldAssist.HasClearButton="True"
                           md:TextFieldAssist.UnderlineBrush="{StaticResource GreenColorBrush}"
-                          Grid.Row="0"
-                          Grid.Column="0"
                           Width="500"
                           Height="38"
-                          Padding="8"
+                          Padding="4"
                           HorizontalAlignment="Left"
                           Background="{StaticResource PrimaryColorBrush}"
                           BorderBrush="{StaticResource Primary700ColorBrush}"
                           FontSize="14"
                           Foreground="{StaticResource Primary900ColorBrush}"
-                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                          Text="{Binding DestinationDir}">
+                          Text="{Binding DestinationDir, UpdateSourceTrigger=PropertyChanged}">
                      <md:HintAssist.Hint>
                          <StackPanel Margin="-2,0,0,0"
                                      Orientation="Horizontal">
                              <md:PackIcon Kind="ImageLocation" 
                                           Margin="0 2 4 0"/>
-                             <TextBlock Text="Destination Dir" />
+                             <TextBlock Text="Destination Dir" 
+                                        Foreground="{StaticResource AccentColorBrush}"/>
                          </StackPanel>
                      </md:HintAssist.Hint>
                  </TextBox>
@@ -195,6 +198,7 @@
                          Command="{Binding SetDestinationDirCommand}"
                          Foreground="{StaticResource GreenColorBrush}"
                          Style="{StaticResource MaterialDesignFloatingActionButton}">
+                     
                      <md:PackIcon Width="20"
                                   Height="20"
                                   HorizontalAlignment="Center"
@@ -233,42 +237,56 @@
                         <ColumnDefinition Width="60" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0"
-                               Grid.Row="0"
+                        
+                    <!--#region HEIGHT -->
+                        <Border Grid.Column="0"
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                BorderBrush="{StaticResource SecondaryAccentColorBrush}"
+                                BorderThickness="1"
+                                Padding="4">
+                            <StackPanel Orientation="Horizontal">
+                                   <TextBlock 
                                Text="Height :"
                                Foreground="{StaticResource Primary700ColorBrush}"
                                FontSize="12" 
                                VerticalAlignment="Center"
                                HorizontalAlignment="Right"
                                Margin="0 0 14 0"/>
-                    <md:NumericUpDown Grid.Column="1"
-                                      Grid.Row="0"
-                                      Width="140"
-                                      Foreground="{DynamicResource Primary700ColorBrush}"
-                                      HorizontalAlignment="Left"
-                                      Minimum="50"
-                                      Maximum="1200"
-                                      md:TextFieldAssist.UnderlineBrush="{StaticResource Primary700ColorBrush}">
+                                   <md:NumericUpDown Grid.Column="1"
+                                                     Grid.Row="0"
+                                                     Width="140"
+                                                     Foreground="{DynamicResource Primary700ColorBrush}"
+                                                     HorizontalAlignment="Left"
+                                                     Minimum="50"
+                                                     Maximum="1200"
+                                                     Value="{Binding Height, UpdateSourceTrigger=PropertyChanged}"
+                                                     md:TextFieldAssist.UnderlineBrush="{StaticResource Primary700ColorBrush}">
                         <md:NumericUpDown.IncreaseContent>
-                            <Border
-                                   BorderBrush="{DynamicResource Primary700ColorBrush}"
-                                   BorderThickness="1"
-                                   CornerRadius="20">
+                            <Border BorderBrush="{DynamicResource Primary700ColorBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="20">
                                 <md:PackIcon Foreground="{DynamicResource Primary400ColorBrush}"
                                              Kind="ArrowUp" />
                             </Border>
                         </md:NumericUpDown.IncreaseContent>
                         <md:NumericUpDown.DecreaseContent>
-                            <Border
-                                   BorderBrush="{DynamicResource Primary700ColorBrush}"
-                                   BorderThickness="1"
-                                   CornerRadius="20"
-                                   Margin="-6">
+                            <Border BorderBrush="{DynamicResource Primary700ColorBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="20"
+                                    Margin="-6">
                                 <md:PackIcon Foreground="{DynamicResource Primary400ColorBrush}"
                                              Kind="ArrowDown" />
                             </Border>
                         </md:NumericUpDown.DecreaseContent>
-                    </md:NumericUpDown>
+                    </md:NumericUpDown>  
+                            </StackPanel>
+                       
+                        </Border>
+                    
+                    <!--#endregion-->
+                    
+                    <!--#region WIDTH-->
                     <TextBlock Grid.Column="0"
                                Grid.Row="1"
                                Text="Width :"
@@ -283,7 +301,8 @@
                                       Foreground="{DynamicResource Primary700ColorBrush}"
                                       HorizontalAlignment="Left"
                                       Minimum="50"
-                                      Maximum="1200">
+                                      Maximum="1200"
+                                      Value="{Binding Width, UpdateSourceTrigger=PropertyChanged}">
                         <md:NumericUpDown.IncreaseContent>
                             <Border BorderBrush="{DynamicResource Primary700ColorBrush}"
                                     BorderThickness="1"
@@ -302,14 +321,14 @@
                             </Border>
                         </md:NumericUpDown.DecreaseContent>
                     </md:NumericUpDown>
-                    
+                    <!--#endregion-->
                     
                 </Grid>
                 </GroupBox>
                 
                 <!--#endregion-->
                 
-                <!--#region PRESET SIZES-->
+                <!--#region PRESET SIZES COMBOBOX-->
 
                 <GroupBox Grid.Column="1"
                           Grid.Row="4"
@@ -320,11 +339,13 @@
                           Style="{StaticResource MaterialDesignGroupBox}"
                           md:ElevationAssist.Elevation="Dp4"
                           md:GroupBoxAssist.HeaderPadding="0">
-                    <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                          md:HintAssist.Background="{StaticResource Primary200ColorBrush}"
-                          md:HintAssist.Foreground="{StaticResource Primary700ColorBrush}"
+
+                       <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          md:ComboBoxAssist.ShowSelectedItem="True"
                           Foreground="{StaticResource Primary700ColorBrush}"
-                          Background="{StaticResource PrimaryColorBrush}"
+                          Background="Transparent"
+                          BorderBrush="{StaticResource SecondaryAccentColorBrush}"
+                          BorderThickness="1"
                           ItemsSource="{Binding Preset_Sizes}"
                           SelectedIndex="0"
                           VerticalAlignment="Top"
@@ -335,6 +356,7 @@
                           Padding="10">
     
                 </ComboBox> 
+                    
                 </GroupBox>
                 
 

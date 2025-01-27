@@ -15,18 +15,20 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Image_Utility.Enums;
 
 namespace Image_Utility.ViewModels
 {
-    public class RenamerViewModel: ViewModelBase
+    public class RenamerViewModel: PageViewModel
     {
         private readonly INavigator? _navigator;
+        private ILogger _logger;
         public ICommand OpenSourceFolderCommand { get; }
         public ICommand SetDestinationFolderCommand { get; }
         public ICommand SetExternalCommand { get; }
         public ICommand StartRenamingCommand { get; }
 
-        #region Auto Properties
+        #region Properties
         private ObservableCollection<ImageProperties> _files;
         public ObservableCollection<ImageProperties> Files
         {
@@ -83,6 +85,13 @@ namespace Image_Utility.ViewModels
             set => OnPropertyChanged(ref _useExternal, value);
         }
 
+        private bool _useOptions;
+        public bool UseOptions
+        {
+            get => _useOptions;
+            set => OnPropertyChanged(ref _useOptions, value);
+        }
+
         private string _statusMessage;
         public string StatusMessage
         {
@@ -133,16 +142,18 @@ namespace Image_Utility.ViewModels
         }
         #endregion
 
-        public RenamerViewModel(INavigator? navigator)
+        public RenamerViewModel(INavigator? navigator, ILogger logger)
         {
+            PageName = ApplicationPageNames.Renamer;
             _navigator = navigator;
+            _logger = logger;
             OpenSourceFolderCommand = new RelayCommand(OpenFolderBrowser);
             SetDestinationFolderCommand = new RelayCommand(SetDestinationDir);
             SetExternalCommand = new RelayCommand(SetExternalFilePath);
             StartRenamingCommand = new AsyncRelayCommand(Rename, (ex) => StatusMessage = ex.Message);
             Files = new();
+            _logger.Log(DateTime.Now, "Loaded Renamer View", LogType.Information, TargetType.File);
 
-           
         }
 
         private async Task Rename()
@@ -172,7 +183,7 @@ namespace Image_Utility.ViewModels
             OldExt = "";
             NewExt = "";
             ProgressValue = 0;
-
+            _logger.Log(DateTime.Now, "Rename() method called", LogType.Information, TargetType.File);
         }
 
         private void SetExternalFilePath()

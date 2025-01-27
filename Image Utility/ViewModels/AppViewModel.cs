@@ -5,6 +5,8 @@ using System;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Windows.Input;
+using Image_Utility.Enums;
+using Image_Utility.Models;
 using ILogger = Image_Utility.Interfaces.ILogger;
 
 namespace Image_Utility.ViewModels
@@ -47,10 +49,10 @@ namespace Image_Utility.ViewModels
             NavigateResizerCommand = new NavigateCommand<ResizerViewModel>(_navigator, () => new ResizerViewModel(_navigator, _logger, this));
             NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(_navigator, () => new SettingsViewModel(_navigator));
             NavigateCompresserCommand = new NavigateCommand<CompresserViewModel>(_navigator, () => new CompresserViewModel(_navigator));
-            NavigateRenamerCommand = new NavigateCommand<RenamerViewModel>(_navigator, () => new RenamerViewModel(_navigator));
+            NavigateRenamerCommand = new NavigateCommand<RenamerViewModel>(_navigator, () => new RenamerViewModel(_navigator, _logger));
             CanExecute = true;
-            IsOnline = NetworkInterface.GetIsNetworkAvailable();
-            Log.Information("Image Utility Started");
+            IsOnline = IsConnectedToInternet();//NetworkInterface.GetIsNetworkAvailable();
+            _logger.Log(DateTime.Now, "Image Utility Started", LogType.Information, TargetType.File);
         }
 
         private void OnSelectedViewModelChanged()
@@ -58,7 +60,7 @@ namespace Image_Utility.ViewModels
             OnPropertyChanged(nameof(SelectedViewModel));
         }
 
-        public void IsConnectedToInternet()
+        public bool IsConnectedToInternet()
         {
             string host = "google.com";  
             Ping p = new Ping();
@@ -66,12 +68,14 @@ namespace Image_Utility.ViewModels
             {
                 PingReply reply = p.Send(host, 8000);
                 if (reply.Status == IPStatus.Success)
-                    _isOnline = true;
+                    return true;
             }
             catch (Exception e)
             {
-                _isOnline = false;
+                return false;
             }
+
+            return false;
         }
     }
 }

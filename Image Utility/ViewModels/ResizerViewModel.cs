@@ -14,6 +14,10 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Image_Utility.Enums;
+using Image_Utility.Models;
+using static Image_Utility.App;
+using Application = System.Windows.Application;
 
 namespace Image_Utility.ViewModels
 {
@@ -82,6 +86,34 @@ namespace Image_Utility.ViewModels
             set => OnPropertyChanged(ref _cExecute, value);
         }
 
+        private int _width;
+        public int Width
+        {
+            get => _width;
+            set => OnPropertyChanged(ref _width, value);
+        }
+
+        private int _height;
+        public int Height
+        {
+            get => _height;
+            set => OnPropertyChanged(ref _height, value);
+        }
+
+        private bool _isRunning;
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => OnPropertyChanged(ref _isRunning, value);
+        }
+
+        private int _progressValue;
+        public int ProgressValue
+        {
+            get => _progressValue;
+            set => OnPropertyChanged(ref _progressValue, value);
+        }
+
         #endregion
 
         public ResizerViewModel(INavigator? navigator, ILogger logger, AppViewModel vm)
@@ -93,6 +125,7 @@ namespace Image_Utility.ViewModels
             SetSourceDirCommand = new AsyncRelayCommand(SetSourceDir, null);
             SetDestinationDirCommand = new RelayCommand(SetDestinationDir);
             DoResizeCommand = new AsyncRelayCommand(DoResize, null);
+            _logger.Log(DateTime.Now, "Loaded Resizer View", LogType.Information, TargetType.File);
             Previews = new();
             BindingOperations.EnableCollectionSynchronization(Previews, new object());
             LoadPresets();
@@ -127,8 +160,11 @@ namespace Image_Utility.ViewModels
 
         private async Task DoResize()
         {
+            
             if (!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp")))
                 Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp"));
+
+            IsRunning = true;
 
             for (int i = 0; i < Files.Count; i++)
             {
@@ -136,13 +172,14 @@ namespace Image_Utility.ViewModels
                 var copyTo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", $"temp_{i}.png");
                 await _resizerService.ResizeAsync(file, 55, 300, copyTo);
             }
-            
+            _logger.Log(DateTime.Now, "DoResize() method called", LogType.Information, TargetType.File);
 
         }
 
         #region LOAD PREVIEWS
         private async Task LoadPreview()
         {
+            _logger.Log(DateTime.Now, "LoadPreview() method called", LogType.Information, TargetType.File);
             var files = Directory.GetFiles(SourceDir);
             Files = files.ToList();
             AppViewModel.CanExecute = false;
@@ -158,7 +195,7 @@ namespace Image_Utility.ViewModels
                         var fSize = FileSizeFormatter.FormatSize(fileSize);
                         var img = Image.FromFile(file.FullName);
 
-                        App.Current.Dispatcher.Invoke((Action)delegate ()
+                        Application.Current.Dispatcher.Invoke((Action)delegate ()
                         {
                             Previews.Add(
                             new ImageProperties()
@@ -171,11 +208,11 @@ namespace Image_Utility.ViewModels
                             });
                         });
                             
-                        }
+                    }
                     catch (Exception ex)
                     {
                         ErrorMessage = ex.Message;
-                        _logger.LogInfo(DateTime.Now, ErrorMessage);
+                        _logger.Log(DateTime.Now, ErrorMessage, LogType.Information, TargetType.File);
                     }
                     
                 }
@@ -200,6 +237,7 @@ namespace Image_Utility.ViewModels
         private void OnSelectedViewModelChanged()
         {
             OnPropertyChanged(nameof(SelectedViewModel));
+            _logger.Log(DateTime.Now, "PropertyChanged event invoked for [ResizerViewModel].", LogType.Information, TargetType.File);
         }
 
         #endregion

@@ -107,7 +107,7 @@
         <GradientStop Offset="1.0" Color="{StaticResource Green}" />
     </LinearGradientBrush>
     <!--  End CardSecondaryToPrimaryGradientBrush  -->
-    
+
     <!--  LightRedToLightOrangeGradientBrush  -->
     <LinearGradientBrush x:Key="LightRedToLightOrangeGradientBrush" StartPoint="0,0" EndPoint="1,0">
         <GradientStop Offset="0.0" Color="{StaticResource LightRed}" />

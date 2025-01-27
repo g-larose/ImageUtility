@@ -40,14 +40,10 @@
                 Grid.Row="0"
                 Grid.RowSpan="3"
                 Grid.ColumnSpan="2"
+                BorderBrush="Black"
+                BorderThickness="0 0 1 0"
                 Background="{StaticResource Primary200ColorBrush}">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="2"
-                                  ShadowDepth="2"
-                                  Direction="0"
-                                  Color="Black"
-                                  Opacity=".2" />
-            </Border.Effect>
+            
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="90"/>
@@ -76,9 +72,9 @@
                              IsEnabled="{Binding CanExecute}">
                     <fa:IconImage Icon="ArrowUpAZ"
                                   Foreground="DarkGray"
-                                  Height="50"
-                                  Width="50" 
-                                  Margin="30 0"/>
+                                  Height="40"
+                                  Width="40" 
+                                  Margin="40 0"/>
                 </RadioButton>
 
                 
@@ -96,9 +92,9 @@
                         IsEnabled="{Binding CanExecute}">
                     <fa:IconImage Icon="FileImage"
                                   Foreground="DarkGray"
-                                  Height="50"
-                                  Width="50"
-                                  Margin="30 0"/>
+                                  Height="40"
+                                  Width="40"
+                                  Margin="40 0"/>
                 </RadioButton>
                 <RadioButton Width="120"
                         Height="80"
@@ -114,9 +110,9 @@
                         IsEnabled="{Binding CanExecute}">
                     <fa:IconImage Icon="TextHeight"
                                   Foreground="DarkGray"
-                                  Height="50"
-                                  Width="50" 
-                                  Margin="30 0"/>
+                                  Height="40"
+                                  Width="40" 
+                                  Margin="40 0"/>
                 </RadioButton>
                 <RadioButton Width="120"
                         Height="80"
@@ -132,9 +128,9 @@
                         IsEnabled="{Binding CanExecute}">
                     <fa:IconImage Icon="FileZipper"
                                   Foreground="DarkGray"
-                                  Height="50"
-                                  Width="50" 
-                                  Margin="30 0"/>
+                                  Height="40"
+                                  Width="40" 
+                                  Margin="40 0"/>
                 </RadioButton>
                 <RadioButton Width="120"
                         Height="80"
@@ -150,9 +146,9 @@
                         IsEnabled="{Binding CanExecute}">
                     <fa:IconImage Icon="Gear"
                                   Foreground="DarkGray"
-                                  Height="50"
-                                  Width="50" 
-                                  Margin="30 0"/>
+                                  Height="40"
+                                  Width="40" 
+                                  Margin="40 0"/>
                 </RadioButton>
             </Grid>
            

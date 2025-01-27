@@ -87,6 +87,5 @@
                 Foreground="WhiteSmoke"
                 Style="{StaticResource MaterialDesignFloatingActionButton}" />
         </StackPanel>
-
     </Grid>
 </UserControl>
