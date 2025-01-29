@@ -26,7 +26,6 @@ namespace Image_Utility
 
         public App()
         {
-           
             _host = Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
                 services.AddSingleton<AppViewModel>();

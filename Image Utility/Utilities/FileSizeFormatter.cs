@@ -8,18 +8,18 @@ namespace Image_Utility.Utilities
 {
     public static class FileSizeFormatter
     {
-        static readonly string[] suffixes = { "Bytes", "KB", "MB", "GB", "TB", "PB" };
-        public static string FormatSize(Int64 bytes)
+        private static readonly string[] Suffixes = ["Bytes", "KB", "MB", "GB", "TB", "PB"];
+        public static string FormatSize(int bytes)
         {
-            int counter = 0;
-            decimal number = (decimal)bytes;
+            var counter = 0;
+            var number = (decimal)bytes;
             while (Math.Round(number / 1024) >= 1)
             {
                 number = number / 1024;
                 counter++;
             }
 
-            return string.Format("{0:n1} {1}", number, suffixes[counter]);
+            return $"{number:n1} {Suffixes[counter]}";
         }
     }
 }

@@ -192,7 +192,7 @@ namespace Image_Utility.ViewModels
                     {
                         var file = new FileInfo(files[i]);
                         var fileSize = file.Length;
-                        var fSize = FileSizeFormatter.FormatSize(fileSize);
+                        var fSize = FileSizeFormatter.FormatSize((int)fileSize);
                         var img = Image.FromFile(file.FullName);
 
                         Application.Current.Dispatcher.Invoke((Action)delegate ()

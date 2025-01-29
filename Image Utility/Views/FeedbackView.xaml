@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="Image_Utility.Views.FeedbackView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Image_Utility.Views"
+             mc:Ignorable="d" 
+             Height="450" Width="600">
+    <Grid>
+          <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="20"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="20"/>
+          </Grid.ColumnDefinitions> 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <!-- #region HEADER -->
+        <TextBlock Grid.Column="1" 
+                   Grid.Row="0"
+                   Text="Feedback"
+                   FontSize="22"
+                   Foreground="{StaticResource SecondaryAccentColorBrush}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="20 0"/>
+        <!-- #endregion -->
+
+        <Grid Grid.Column="1"
+              Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="200"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!-- #region EMAIL -->
+            <TextBox Grid.Row="0" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     md:HintAssist.Hint="Email"
+                     md:HintAssist.Foreground="{StaticResource AccentToAccent100GradientBrush}"
+                     Foreground="{StaticResource GreyColorBrush}"
+                     Padding="10"/>
+            <!-- endregion -->
+
+            <!--#region SUBJECT -->
+            <TextBox Grid.Row="1" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     md:HintAssist.Hint="Subject"
+                     md:HintAssist.Foreground="{StaticResource AccentToAccent100GradientBrush}"
+                     Foreground="{StaticResource GreyColorBrush}"
+                     Padding="10"/>
+            <!-- endregion -->
+
+            <!-- $region MESSAGE -->
+            <TextBox Grid.Row="2" 
+                     Style="{StaticResource MaterialDesignTextBox}"
+                     Background="{StaticResource PrimaryToSecondaryGradientBrush}"
+                     md:HintAssist.HelperText="Feedback Message"
+                     md:HintAssist.HelperTextFontSize="8"
+                     Foreground="{StaticResource GreyColorBrush}"
+                     MaxLength="200"/>
+            <!--endregion -->
+        </Grid>
+       
+        <!-- #region SUBMIT/CANCEL COMMAND-->
+        <StackPanel Grid.Row="3"
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 20 0">
+            <Button Content="SUBMIT"
+                    Margin="0 0 10 0"></Button>
+            <Button Content="CANCEL"></Button>
+        </StackPanel>
+        <!-- endregion -->
+    </Grid>
+</UserControl>

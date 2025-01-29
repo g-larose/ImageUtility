@@ -144,19 +144,19 @@
                 <!--#region Source-->
                 <StackPanel
                     Grid.Row="0"
-                    Margin="0,0"
                     Height="60"
+                    Margin="0,0"
                     HorizontalAlignment="Left"
-                    Orientation="Horizontal"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
                     <TextBox
                         Name="txtSourceDir"
                         Grid.Row="0"
                         Grid.Column="0"
                         Width="500"
-                        VerticalAlignment="Center"
                         Padding="4"
                         HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
                         md:TextFieldAssist.HasClearButton="True"
                         md:TextFieldAssist.UnderlineBrush="{StaticResource GreenColorBrush}"
                         Background="{StaticResource PrimaryColorBrush}"
@@ -205,10 +205,10 @@
                 <!--#region Destination-->
                 <StackPanel
                     Grid.Row="1"
-                    Margin="0,0"
                     Height="60"
-                    Orientation="Horizontal"
-                    VerticalAlignment="Center">
+                    Margin="0,0"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
                     <TextBox
                         Name="txtDestDir"
                         Width="500"
@@ -259,7 +259,6 @@
                     HorizontalAlignment="Left"
                     Orientation="Horizontal">
                     <RadioButton
-                        GroupName="UseExternal"
                         Width="30"
                         Height="30"
                         Margin="0,4,0,0"
@@ -267,7 +266,7 @@
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
                         Background="{StaticResource SecondaryColorBrush}"
-
+                        GroupName="UseExternal"
                         IsChecked="{Binding UseExternal}"
                         Style="{StaticResource MaterialDesignRadioButton}" />
                     <TextBlock
@@ -276,8 +275,8 @@
                         FontSize="18"
                         FontWeight="Bold"
                         Foreground="{StaticResource Primary500ColorBrush}"
-                        Text="Use External Txt File" 
-                        IsEnabled="{Binding UseExternal}"/>
+                        IsEnabled="{Binding UseExternal}"
+                        Text="Use External Txt File" />
                     <TextBox
                         Width="274"
                         Margin="0,0,0,10"
@@ -326,17 +325,17 @@
                         <Button.Content>
                             <md:PopupBox PlacementMode="RightAndAlignTopEdges">
                                 <md:PopupBox.ToggleContent>
-                                    <md:PackIcon Kind="Help"
-                                                 Foreground="{StaticResource Primary700ColorBrush}"/>
-                                    
+                                    <md:PackIcon Foreground="{StaticResource Primary700ColorBrush}" Kind="Help" />
+
                                 </md:PopupBox.ToggleContent>
-                                <TextBlock Text="Use External loads an external txt file and replaces all other options for renaming." 
-                                           Padding="10"
-                                           TextWrapping="Wrap"
-                                           Width="300"/>
-                            </md:PopupBox>  
+                                <TextBlock
+                                    Width="300"
+                                    Padding="10"
+                                    Text="Use External loads an external txt file and replaces all other options for renaming."
+                                    TextWrapping="Wrap" />
+                            </md:PopupBox>
                         </Button.Content>
-                        
+
 
                     </Button>
 
@@ -360,7 +359,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!--#region USE OPTIONS-->
-                <StackPanel 
+                <StackPanel
                     Grid.Row="0"
                     Grid.ColumnSpan="4"
                     VerticalAlignment="Center"
@@ -374,12 +373,12 @@
                         Opacity=".6" />
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                         <RadioButton
-                            GroupName="UseExternal"
                             Margin="0,10,0,0"
                             HorizontalAlignment="Left"
                             Background="{StaticResource SecondaryColorBrush}"
-                            Style="{StaticResource MaterialDesignRadioButton}"
-                            IsChecked="{Binding UseOptions}"/>
+                            GroupName="UseExternal"
+                            IsChecked="{Binding UseOptions}"
+                            Style="{StaticResource MaterialDesignRadioButton}" />
                         <TextBlock
                             Height="24"
                             Margin="10,8,0,0"
@@ -395,7 +394,7 @@
                 <!--#endregion-->
 
                 <!--#region MATCH/REPLACE-->
-                <Grid 
+                <Grid
                     Grid.Row="1"
                     Grid.Column="0"
                     Margin="0,20,10,0">
@@ -412,9 +411,9 @@
                             VerticalAlignment="Center"
                             FontSize="18"
                             Foreground="{StaticResource PrimaryColorBrush}"
-                            Text="Match/Replace"/>
+                            Text="Match/Replace" />
                     </Border>
-                    <Border 
+                    <Border
                         Grid.Row="1"
                         Background="{StaticResource PrimaryColorBrush}"
                         BorderBrush="{StaticResource Primary500ColorBrush}"
@@ -432,7 +431,7 @@
 
 
                         <StackPanel
-                            Margin="0 -8 0 0"
+                            Margin="0,-8,0,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Orientation="Vertical">
@@ -535,7 +534,7 @@
                         </Border.Effect>
 
                         <StackPanel
-                            Margin="0 -2 0 0"
+                            Margin="0,-2,0,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Orientation="Vertical">
